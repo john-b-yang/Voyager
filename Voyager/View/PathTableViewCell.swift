@@ -9,7 +9,8 @@
 import UIKit
 
 class PathTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var continentLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
