@@ -28,22 +28,13 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continent Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-NR-Dsp">
-                                            <rect key="frame" x="8" y="40" width="103" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.44313725490196076" green="0.44313725490196076" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="YAZ-Fl-4RV" firstAttribute="top" secondItem="XVg-SE-5cP" secondAttribute="topMargin" constant="3" id="ITt-0c-ZK7"/>
                                         <constraint firstItem="YAZ-Fl-4RV" firstAttribute="leading" secondItem="XVg-SE-5cP" secondAttribute="leadingMargin" id="W9E-CP-T4F"/>
-                                        <constraint firstItem="rBV-NR-Dsp" firstAttribute="leading" secondItem="XVg-SE-5cP" secondAttribute="leadingMargin" id="geP-Gq-w6T"/>
-                                        <constraint firstItem="rBV-NR-Dsp" firstAttribute="top" secondItem="YAZ-Fl-4RV" secondAttribute="bottom" constant="8" id="zev-eP-t7Q"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="continentLabel" destination="rBV-NR-Dsp" id="3gZ-N4-vBx"/>
                                     <outlet property="titleLabel" destination="YAZ-Fl-4RV" id="5HT-w0-14p"/>
                                     <segue destination="dAE-2z-Mei" kind="show" id="4u0-Jy-SMA"/>
                                 </connections>
