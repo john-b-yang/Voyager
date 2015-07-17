@@ -8,17 +8,38 @@
 
 import UIKit
 import GoogleMaps
+import CoreLocation
 
 class NewPathViewController: UIViewController {
 
+    //To use for autocomplete query and look up place id
     var placesClient: GMSPlacesClient?
+    
     var data: [GMSAutocompletePrediction]?
+    let locationManager = CLLocationManager()
+    var userLocation: CLLocationCoordinate2D?
+    
+    //Used to store all autocomplete values. Helps in retrieval of GMSPlace objects - location
+    var locationDictionary = [String : GMSAutocompletePrediction]()
+    //Used to store all autocomplete values. Helps in retrieval of GMSPlace objects - start
+    var startDictionary = [String : GMSAutocompletePrediction]()
+    
+    //Final List of User Locations
+    var locationList: [GMSPlace]!
+    //Final User inputted path name
+    var pathName: String!
+    //Final User Start Location
+    var startLocation: GMSPlace!
+    
+    //Displayed list of final user locations. Not important, just aesthetics
+    var destinationList = [String]()
     
     @IBOutlet weak var destinationEntry: AutoCompleteTextField!
-    @IBOutlet weak var startPointEntry: UITextField!
+    @IBOutlet weak var startPointEntry: AutoCompleteTextField!
     @IBOutlet weak var pathNameEntry: UITextField!
     @IBOutlet weak var destinationTableView: UITableView!
     
+    let textFieldColorUI = UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)
     let textFieldColor = (UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)).CGColor
     let cellBorderWidth: CGFloat = 0.5
     
@@ -28,20 +49,29 @@ class NewPathViewController: UIViewController {
         
         placesClient = GMSPlacesClient()
         
-        startPointEntry.layer.borderColor = textFieldColor
-        startPointEntry.layer.borderWidth = cellBorderWidth
-        
         pathNameEntry.layer.borderColor = textFieldColor
         pathNameEntry.layer.borderWidth = cellBorderWidth
+        
+        startPointEntry.layer.borderColor = textFieldColor
+        startPointEntry.layer.borderWidth = cellBorderWidth
+        startPointEntry.autoCompleteStrings = []
+        startPointEntry.addTarget(self, action: "startFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
+        startPointEntry.maximumAutoCompleteCount = 10
         
         destinationEntry.layer.borderColor = textFieldColor
         destinationEntry.layer.borderWidth = cellBorderWidth
         destinationEntry.autoCompleteStrings = []
         destinationEntry.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
-        destinationEntry.maximumAutoCompleteCount = 5
+        destinationEntry.maximumAutoCompleteCount = 10
+        
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
         
         checkExternalTaps()
         handleInput()
+        handleStartInput()
         
         destinationTableView.dataSource = self
         self.destinationTableView.reloadData()
@@ -114,19 +144,22 @@ class NewPathViewController: UIViewController {
 
 extension NewPathViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.destinationList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.destinationTableView.dequeueReusableCellWithIdentifier("DestinationEntry", forIndexPath: indexPath) as! NewDestinationTableViewCell
         
-        cell.destinationLabel?.text = "Destination"
+        let destination = self.destinationList[indexPath.row]
+        
+        cell.destinationLabel?.text = destination
+        cell.destinationLabel?.textColor = textFieldColorUI
         
         return cell
     }
 }
 
-//MARK: Keyboard Settings
+//MARK: Keyboard Settings + Listeners
 extension NewPathViewController {
     func checkExternalTaps() {
         let tapRecognizer = UITapGestureRecognizer()
@@ -136,6 +169,12 @@ extension NewPathViewController {
     
     func didTapView() {
         self.view.endEditing(true)
+    }
+    
+    @IBAction func enterPathName(sender: AnyObject) {
+        pathName = pathNameEntry.text
+        self.view.endEditing(true)
+        println(pathName)
     }
 }
 
@@ -150,9 +189,68 @@ extension NewPathViewController {
         search(textField.text)
     }
     
+    func startFieldDidChange(textField: UITextField){
+        if let strings = self.startPointEntry?.autoCompleteStrings {
+            println("Auto Complete String is not nil")
+        } else {
+            self.startPointEntry.autoCompleteStrings? = ["Current Location"]
+        }
+        self.startPointEntry!.textColor = UIColor.blackColor()
+        searchStart(textField.text)
+    }
+    
+    func searchStart(query: String) {
+        let filter = GMSAutocompleteFilter()
+        var bounds: GMSCoordinateBounds!
+        
+        //Checking if there is a registered user location
+        if let coord = self.userLocation {
+            bounds = GMSCoordinateBounds(coordinate: coord, coordinate: coord)
+            println("Bounds: \(bounds)")
+        } else {
+            bounds = GMSCoordinateBounds()
+            println("Not working")
+        }
+        
+        self.startPointEntry!.autoCompleteStrings?.removeAll(keepCapacity: false)
+        self.data?.removeAll(keepCapacity: false)
+        if count(query) > 0 {
+            placesClient?.autocompleteQuery(query, bounds: bounds, filter: filter, callback: { (results, error) -> Void in
+                if error != nil {
+                    println("Autocomplete error \(error) for query '\(query)'")
+                    return
+                }
+                
+                println("Populating results for query '\(query)'")
+                self.data = [GMSAutocompletePrediction]()
+                for result in results! {
+                    if let result = result as? GMSAutocompletePrediction {
+                        self.data!.append(result)
+                        self.startPointEntry!.autoCompleteStrings?.append(result.attributedFullText.string)
+                        self.startDictionary[result.attributedFullText.string] = result
+                        println(self.startPointEntry!.autoCompleteStrings?.count)
+                    }
+                }
+            })
+        } else {
+            self.data = [GMSAutocompletePrediction]()
+            self.startPointEntry.autoCompleteStrings = []
+        }
+    }
+    
     func search(query: String) {
         let filter = GMSAutocompleteFilter()
-        let bounds = GMSCoordinateBounds()
+        var bounds: GMSCoordinateBounds!
+        
+        //Checking if there is a registered user location
+        if let coord = self.userLocation {
+            bounds = GMSCoordinateBounds(coordinate: coord, coordinate: coord)
+            println("Bounds: \(bounds)")
+        } else {
+            bounds = GMSCoordinateBounds()
+            println("Not working")
+        }
+        
         self.destinationEntry!.autoCompleteStrings?.removeAll(keepCapacity: false)
         self.data?.removeAll(keepCapacity: false)
         if count(query) > 0 {
@@ -169,6 +267,7 @@ extension NewPathViewController {
                     if let result = result as? GMSAutocompletePrediction {
                         self.data!.append(result)
                         self.destinationEntry!.autoCompleteStrings?.append(result.attributedFullText.string)
+                        self.locationDictionary[result.attributedFullText.string] = result
                         println(self.destinationEntry!.autoCompleteStrings?.count)
                     }
                 }
@@ -181,8 +280,89 @@ extension NewPathViewController {
     
     func handleInput() {
         destinationEntry.onSelect = {[weak self] text, indexpath in
-            self!.destinationEntry!.text = text
-            println("You got it")
+            //Clearing out the text box
+            self!.destinationEntry!.text.removeAll(keepCapacity: false)
+            
+            //Adding the destination text to display list
+            self?.destinationList.append(text)
+            
+            /*
+              Retrieving PlaceID string necessary to access GMSPlace
+              1. self?.locationDictionary[text] grabs the GMSAutocomplete
+              2. .placeID grabs the string value placeID
+            */
+            var placeid = self?.locationDictionary[text]?.placeID
+            
+            //Note: Point where you use placeID string to grab GMSPlace
+            self!.placesClient?.lookUpPlaceID(placeid!, callback: {(place, error) -> Void in
+                if error != nil {
+                    println("lookup place id query error: \(error!.localizedDescription)")
+                    return
+                }
+                
+                if let p = place {
+                    //Adding GMSPlace (User Destination) to list
+                    self?.locationList?.append(p)
+                } else {
+                    println("No place details for \(placeid)")
+                }
+            })
+            
+            println(self?.destinationList)
+            self!.destinationTableView.reloadData()
         }
+    }
+    
+    func handleStartInput() {
+        startPointEntry.onSelect = {[weak self] text, indexpath in
+            self!.startPointEntry!.text = text
+            self!.startPointEntry!.textColor = self!.textFieldColorUI
+            
+            var placeid = self?.startDictionary[text]?.placeID
+            
+            self!.placesClient?.lookUpPlaceID(placeid!, callback: {(place, error) -> Void in
+                if error != nil {
+                    println("lookup place id query error: \(error!.localizedDescription)")
+                    return
+                }
+                
+                if let p = place {
+                    //Registering User Start Position
+                    self!.startLocation = p
+                } else {
+                    println("No place details for \(placeid)")
+                }
+            })
+        }
+    }
+}
+
+//MARK: User Location
+extension NewPathViewController : CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        self.userLocation = manager.location.coordinate
+        
+        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+            if error != nil {
+                println("Error: " + error.localizedDescription)
+                return
+            }
+            if placemarks.count > 0 {
+                let pm = placemarks[0] as! CLPlacemark
+                self.displayLocationInfo(pm)
+            }
+        })
+    }
+    
+    func displayLocationInfo(placemark: CLPlacemark) {
+        self.locationManager.stopUpdatingLocation()
+        println("Locality: \(placemark.locality)")
+        println(placemark.postalCode)
+        println("Administrative Area: \(placemark.administrativeArea)")
+        println("Country: \(placemark.country)")
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Error: " + error.localizedDescription)
     }
 }

@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import GoogleMaps
 
-struct Path {
-    let pathName : String
-    let continent : String
-    //let pathway: [Route]
+class Path {
+    dynamic var pathName: String = "Dummy"
+    dynamic var start: GMSPlace!
+    dynamic var initialList: [GMSPlace]!
+    dynamic var modificationDate = NSDate()
 }

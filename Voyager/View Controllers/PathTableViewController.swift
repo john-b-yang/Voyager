@@ -17,12 +17,7 @@ class PathTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.paths = [Path(pathName: "LA to Vegas", continent: "North America"),
-            Path(pathName: "NYC to Boston", continent: "North America"),
-            Path(pathName: "NYC to Manhattan", continent: "North America"),
-            Path(pathName: "Cleveland to Chicago", continent: "North America"),
-            Path(pathName: "Chicago to Cincinnati", continent: "North America"),
-            Path(pathName: "Cincinnati to Milwaukee", continent: "North America")]
+        self.paths = [Path()]
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -114,7 +109,6 @@ extension PathTableViewController: UITableViewDataSource{
         let path = self.paths[indexPath.row]
         
         cell.titleLabel?.text = path.pathName
-        cell.continentLabel?.text = path.continent
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell
