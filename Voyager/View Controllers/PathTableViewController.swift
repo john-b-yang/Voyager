@@ -13,19 +13,22 @@ class PathTableViewController: UITableViewController {
     
     @IBOutlet var tableViewObj: UITableView!
     
-    var paths = [Path]()
+    var paths: Results<Path>! {
+        didSet {
+            tableViewObj?.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.paths = [Path()]
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.tableViewObj.reloadData()
         tableViewObj.dataSource = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let realm = Realm()
+        paths = realm.objects(Path).sorted("pathName", ascending: true)
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,6 +88,8 @@ class PathTableViewController: UITableViewController {
                 //Cancel Button
                 println("I see how it is")
             }
+            
+            paths = realm.objects(Path).sorted("pathName", ascending: true)
         }
     }
 
@@ -151,17 +156,44 @@ class PathTableViewController: UITableViewController {
 
 extension PathTableViewController: UITableViewDataSource{
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.paths.count
+        return Int(paths?.count ?? 0)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PathTableViewCell
         
-        let path = self.paths[indexPath.row]
-        
-        cell.titleLabel?.text = path.pathName
+        let row = indexPath.row
+        let aPath = paths[row] as Path
+        cell.titleLabel?.text = aPath.pathName
+        cell.titleLabel.textColor = UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)
+        cell.startLocationLabel.text = "Start: \(aPath.start.name)"
+        cell.modificationDate.text = PathTableViewCell.dateFormatter.stringFromDate(aPath.modificationDate)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            
+            var alertTitle = "Warning"
+            var alertMessage = "Are you sure you want to delete the path?"
+            
+            var alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
+                let path = self.paths[indexPath.row] as Object
+                let realm = Realm()
+                realm.write() {
+                    realm.delete(path)
+                }
+                self.paths = realm.objects(Path).sorted("pathName", ascending: true)
+            })
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 }

@@ -11,6 +11,8 @@ import UIKit
 class PathTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var modificationDate: UILabel!
+    @IBOutlet weak var startLocationLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,5 +24,11 @@ class PathTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    static var dateFormatter: NSDateFormatter = {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+        }()
 
 }
