@@ -12,7 +12,7 @@ import RealmSwift
 
 class Path : Object {
     dynamic var pathName: String = "Placeholder"
-    dynamic var start: GMSPlace!
-    dynamic var initialList: [GMSPlace]!
+    dynamic var start: Location!
+    dynamic var initialList = List<Location>()
     dynamic var modificationDate = NSDate()
 }

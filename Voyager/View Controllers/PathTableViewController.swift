@@ -43,14 +43,35 @@ class PathTableViewController: UITableViewController {
                 if let name = source.pathName {
                     if let start = source.startLocation {
                         if !source.locationList.isEmpty {
-                            println("Yes")
+                            
                             let newPath = Path()
-                            newPath.start = source.startLocation
                             newPath.pathName = source.pathName
-                            newPath.initialList = source.locationList
-                            realm.write() {
-                                realm.add(newPath, update: true)
+                            
+                            var location = Location()
+                            for var i = 0; i < source.locationList.count; i++ {
+                                var gmsplace = source.locationList[i]
+                                location.name = gmsplace.name
+                                location.address = gmsplace.formattedAddress
+                                location.placeID = gmsplace.placeID
+                                location.latitude = gmsplace.coordinate.latitude
+                                location.longitude = gmsplace.coordinate.longitude
                             }
+                            newPath.initialList.append(location)
+                            
+                            var startLocation = Location()
+                            var startGMSPlace = source.startLocation
+                            startLocation.name = startGMSPlace.name
+                            startLocation.address = startGMSPlace.formattedAddress
+                            startLocation.placeID = startGMSPlace.placeID
+                            startLocation.latitude = startGMSPlace.coordinate.latitude
+                            startLocation.longitude = startGMSPlace.coordinate.longitude
+                            newPath.start = startLocation
+                            
+                            //TODO: Append location to list
+                            realm.write() {
+                                realm.add(newPath)
+                            }
+
                         } else {
                             source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                         }
