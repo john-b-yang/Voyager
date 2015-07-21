@@ -108,7 +108,7 @@
                                             <constraint firstAttribute="width" constant="552" id="hj7-Fz-2Ze"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mX3-cQ-gbn" userLabel="Path Name Entry" customClass="AutoCompleteTextField" customModule="Voyager" customModuleProvider="target">
@@ -122,7 +122,7 @@
                                             <constraint firstAttribute="width" constant="42" id="CEg-d1-1O7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -141,7 +141,7 @@
                                             <constraint firstAttribute="width" constant="552" id="e4S-3Y-kf5"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Gxz-vG-Kh2">
@@ -157,7 +157,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q46-u1-ItK">
                                                             <rect key="frame" x="8" y="11" width="566" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -212,12 +212,12 @@
                     <navigationItem key="navigationItem" title="New Path" id="UpW-Pe-te5">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gS0-Ii-fSU">
                             <connections>
-                                <segue destination="1WZ-Zg-BqI" kind="unwind" identifier="cancel" unwindAction="unwindToSegue:" id="ymM-mh-TzM"/>
+                                <segue destination="1WZ-Zg-BqI" kind="unwind" identifier="Cancel" unwindAction="unwindToSegue:" id="dx7-Pr-tba"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="yXd-uj-cAg">
                             <connections>
-                                <segue destination="1WZ-Zg-BqI" kind="unwind" identifier="save" unwindAction="unwindToSegue:" id="Ope-4l-VkJ"/>
+                                <segue destination="1WZ-Zg-BqI" kind="unwind" identifier="Save" unwindAction="unwindToSegue:" id="QQA-Xg-kP0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

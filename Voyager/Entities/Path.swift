@@ -8,9 +8,10 @@
 
 import Foundation
 import GoogleMaps
+import RealmSwift
 
-class Path {
-    dynamic var pathName: String = "Dummy"
+class Path : Object {
+    dynamic var pathName: String = "Placeholder"
     dynamic var start: GMSPlace!
     dynamic var initialList: [GMSPlace]!
     dynamic var modificationDate = NSDate()

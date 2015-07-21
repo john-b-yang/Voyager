@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PathTableViewController: UITableViewController {
     
@@ -33,10 +34,39 @@ class PathTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToSegue(segue: UIStoryboardSegue) {
+        let source = segue.sourceViewController as! NewPathViewController
         if let identifier = segue.identifier {
-            println("Identifier \(identifier)")
+            let realm = Realm()
+            var alert: UIAlertView!
+            switch identifier {
+            case "Save" :
+                if let name = source.pathName {
+                    if let start = source.startLocation {
+                        if !source.locationList.isEmpty {
+                            println("Yes")
+                            let newPath = Path()
+                            newPath.start = source.startLocation
+                            newPath.pathName = source.pathName
+                            newPath.initialList = source.locationList
+                            realm.write() {
+                                realm.add(newPath, update: true)
+                            }
+                        } else {
+                            source.displayAlert("Error", alertMessage: "Please enter at least one destination")
+                        }
+                    } else {
+                        source.displayAlert("Error", alertMessage: "Please enter a start location")
+                    }
+                } else {
+                    source.displayAlert("Error", alertMessage: "Please enter a path name")
+                }
+            default:
+                //Cancel Button
+                println("I see how it is")
+            }
         }
     }
+
     // MARK: - Table view data source
     
     //override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

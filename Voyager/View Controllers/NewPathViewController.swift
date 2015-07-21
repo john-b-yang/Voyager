@@ -25,7 +25,7 @@ class NewPathViewController: UIViewController {
     var startDictionary = [String : GMSAutocompletePrediction]()
     
     //Final List of User Locations
-    var locationList: [GMSPlace]!
+    var locationList: [GMSPlace] = []
     //Final User inputted path name
     var pathName: String!
     //Final User Start Location
@@ -81,19 +81,8 @@ class NewPathViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+        
     // MARK: - Table view data source
-    
-    
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-    
-    // Configure the cell...
-    
-    return cell
-    }
-    */
     
     /*
     // Override to support conditional editing of the table view.
@@ -139,7 +128,6 @@ class NewPathViewController: UIViewController {
     // Pass the selected object to the new view controller.
     }
     */
-    
 }
 
 extension NewPathViewController: UITableViewDataSource {
@@ -176,9 +164,21 @@ extension NewPathViewController {
         self.view.endEditing(true)
         println(pathName)
     }
+    func displayAlert(alertTitle: String, alertMessage: String){
+        var alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }
 
 //MARK: Google Maps Autocomplete
+/*
+How it works:
+1. First, the textFieldDidChange identifies that there's something going on
+2. The search function inputs the text and dynamically adjusts the autocomplete list
+to display suggestions for the current string.
+3. Handle input performs reading in the data
+*/
 extension NewPathViewController {
     func textFieldDidChange(textField: UITextField){
         if let strings = self.destinationEntry?.autoCompleteStrings {
@@ -302,7 +302,8 @@ extension NewPathViewController {
                 
                 if let p = place {
                     //Adding GMSPlace (User Destination) to list
-                    self?.locationList?.append(p)
+                    self?.locationList.append(p)
+                    println("LocationList: \(self?.locationList)")
                 } else {
                     println("No place details for \(placeid)")
                 }
