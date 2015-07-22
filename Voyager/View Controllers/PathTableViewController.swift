@@ -11,6 +11,7 @@ import RealmSwift
 
 class PathTableViewController: UITableViewController {
     
+    var selectedPath: Path?
     @IBOutlet var tableViewObj: UITableView!
     
     var paths: Results<Path>! {
@@ -84,6 +85,10 @@ class PathTableViewController: UITableViewController {
                 } else {
                     source.displayAlert("Error", alertMessage: "Please enter a path name")
                 }
+            case "Delete":
+                realm.write() {
+                    realm.delete(self.selectedPath!)
+                }
             default:
                 //Cancel Button
                 println("I see how it is")
@@ -142,15 +147,16 @@ class PathTableViewController: UITableViewController {
     }
     */
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        if(segue.identifier == "showExistingPath") {
+            let pathViewController = segue.destinationViewController as! PathDescriptionViewController
+            pathViewController.path = selectedPath
+        }
     }
-    */
     
 }
 
@@ -195,5 +201,12 @@ extension PathTableViewController: UITableViewDataSource{
             alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+}
+
+extension PathTableViewController : UITableViewDelegate {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedPath = paths[indexPath.row]
+        self.performSegueWithIdentifier("showExistingPath", sender: self)
     }
 }
