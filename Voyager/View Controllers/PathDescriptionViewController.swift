@@ -12,8 +12,6 @@ import RealmSwift
 
 class PathDescriptionViewController: UIViewController {
     
-    //@IBOutlet weak var pathLabel: UILabel!
-    
     var path: Path? {
         didSet {
             displayPath(path)
@@ -22,7 +20,6 @@ class PathDescriptionViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //displayPath(path)
         self.navigationController?.toolbarHidden = false
     }
 
