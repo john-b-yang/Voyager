@@ -20,6 +20,9 @@ class PathDescriptionViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidLoad() {
         self.navigationController?.toolbarHidden = false
     }
 

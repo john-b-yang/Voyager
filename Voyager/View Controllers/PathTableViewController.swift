@@ -12,11 +12,21 @@ import RealmSwift
 class PathTableViewController: UITableViewController {
     
     var selectedPath: Path?
+    
     @IBOutlet var tableViewObj: UITableView!
+    @IBOutlet weak var defaultLabel: UILabel!
     
     var paths: Results<Path>! {
         didSet {
             tableViewObj?.reloadData()
+            defaultLabel.hidden = false
+            if let test = paths {
+                if test.count > 0 {
+                    println("Testing: \(test.count)")
+                    defaultLabel.hidden = true
+                }
+
+            }
         }
     }
     
@@ -29,6 +39,13 @@ class PathTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         let realm = Realm()
         paths = realm.objects(Path).sorted("pathName", ascending: true)
+        defaultLabel.hidden = false
+        if let test = paths {
+            if test.count > 0 {
+                println("Testing: \(test.count)")
+                defaultLabel.hidden = true
+            }
+        }
         super.viewWillAppear(animated)
     }
     
@@ -162,6 +179,13 @@ class PathTableViewController: UITableViewController {
 
 extension PathTableViewController: UITableViewDataSource{
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        /*if let temp = paths {
+            isCellEmpty = false
+            return paths.count
+        } else {
+            isCellEmpty = true
+            return 0
+        }*/
         return Int(paths?.count ?? 0)
     }
     
@@ -169,6 +193,7 @@ extension PathTableViewController: UITableViewDataSource{
         let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PathTableViewCell
         
         let row = indexPath.row
+        
         let aPath = paths[row] as Path
         cell.titleLabel?.text = aPath.pathName
         cell.titleLabel.textColor = UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)
