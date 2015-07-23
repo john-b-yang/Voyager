@@ -9,11 +9,11 @@
         <scene sceneID="JpH-Ut-giw">
             <objects>
                 <tableViewController id="YM4-T7-5WI" customClass="PathTableViewController" customModule="Voyager" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uT8-pV-Xco">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="22" sectionFooterHeight="22" id="uT8-pV-Xco">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click + to get start on your new path!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mbc-x0-Q0x">
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click + to get started on your new path!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mbc-x0-Q0x">
                             <rect key="frame" x="0.0" y="206" width="600" height="236"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
@@ -22,7 +22,7 @@
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="120" id="bzi-5r-owk" customClass="PathTableViewCell" customModule="Voyager" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="140" id="bzi-5r-owk" customClass="PathTableViewCell" customModule="Voyager" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bzi-5r-owk" id="XVg-SE-5cP">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -106,7 +106,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FM5-PZ-qzm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-980" y="-95"/>
+            <point key="canvasLocation" x="-980" y="-111"/>
         </scene>
         <!--Path Description-->
         <scene sceneID="gxr-nW-gfw">
@@ -217,7 +217,18 @@
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lfE-6C-V52" id="gtx-1g-E0e">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q46-u1-ItK">
+                                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k11-JG-d4E">
+                                                            <rect key="frame" x="552" y="8" width="30" height="27"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                            <state key="normal" title="x">
+                                                                <color key="titleColor" red="1" green="0.11189852355430197" blue="0.17128043214489619" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="deleteDestination:" destination="4xk-40-6uK" eventType="touchUpInside" id="Zbi-Xy-ERB"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Destination" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q46-u1-ItK">
                                                             <rect key="frame" x="8" y="11" width="566" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -226,12 +237,22 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="Q46-u1-ItK" firstAttribute="leading" secondItem="gtx-1g-E0e" secondAttribute="leadingMargin" id="4E8-lc-SXL"/>
+                                                        <constraint firstItem="k11-JG-d4E" firstAttribute="leading" secondItem="Q46-u1-ItK" secondAttribute="trailing" constant="-22" id="4IV-bc-p0X"/>
+                                                        <constraint firstItem="k11-JG-d4E" firstAttribute="top" secondItem="gtx-1g-E0e" secondAttribute="topMargin" id="52p-I7-IyQ"/>
                                                         <constraint firstItem="Q46-u1-ItK" firstAttribute="top" secondItem="gtx-1g-E0e" secondAttribute="topMargin" constant="3" id="E2f-zu-qck"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="Q46-u1-ItK" secondAttribute="bottom" constant="3" id="GNP-I0-9Oo"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="Q46-u1-ItK" secondAttribute="trailing" constant="8" id="Xis-yd-3Ja"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="k11-JG-d4E" secondAttribute="trailing" id="hbM-Rb-JTG"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="k11-JG-d4E" secondAttribute="bottom" id="tDa-OC-QIc"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Xis-yd-3Ja"/>
+                                                        </mask>
+                                                    </variation>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="deleteButton" destination="k11-JG-d4E" id="xmg-uG-pEb"/>
                                                     <outlet property="destinationLabel" destination="Q46-u1-ItK" id="qqW-eh-3uL"/>
                                                 </connections>
                                             </tableViewCell>
@@ -311,7 +332,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJB-51-r4q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1630" y="-111"/>
+            <point key="canvasLocation" x="-1680" y="-111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="F3G-JV-gjT">

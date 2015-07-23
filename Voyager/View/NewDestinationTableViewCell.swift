@@ -11,6 +11,7 @@ import UIKit
 class NewDestinationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var destinationLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

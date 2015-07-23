@@ -22,7 +22,6 @@ class PathTableViewController: UITableViewController {
             defaultLabel.hidden = false
             if let test = paths {
                 if test.count > 0 {
-                    println("Testing: \(test.count)")
                     defaultLabel.hidden = true
                 }
 
@@ -42,7 +41,6 @@ class PathTableViewController: UITableViewController {
         defaultLabel.hidden = false
         if let test = paths {
             if test.count > 0 {
-                println("Testing: \(test.count)")
                 defaultLabel.hidden = true
             }
         }
@@ -179,13 +177,6 @@ class PathTableViewController: UITableViewController {
 
 extension PathTableViewController: UITableViewDataSource{
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        /*if let temp = paths {
-            isCellEmpty = false
-            return paths.count
-        } else {
-            isCellEmpty = true
-            return 0
-        }*/
         return Int(paths?.count ?? 0)
     }
     
