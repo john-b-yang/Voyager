@@ -11,7 +11,6 @@ import UIKit
 class NewDestinationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var destinationLabel: UILabel!
-    @IBOutlet weak var deleteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +22,4 @@ class NewDestinationTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

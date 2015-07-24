@@ -109,8 +109,20 @@ extension NewPathViewController: UITableViewDataSource {
         return cell
     }
     
-    @IBAction func deleteDestination(sender: AnyObject) {
-        println("being tapped")
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            let key = destinationList.removeAtIndex(indexPath.row)
+            destinationTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            let removed = locationList.removeAtIndex(indexPath.row)
+            //Test
+            /*println(key)
+            println("Removed: \(removed.name)")*/
+        }
     }
 }
 
@@ -222,21 +234,21 @@ extension NewPathViewController {
         self.destinationEntry!.autoCompleteStrings?.removeAll(keepCapacity: false)
         self.data?.removeAll(keepCapacity: false)
         if count(query) > 0 {
-            println("Searching for '\(query)'")
+            //println("Searching for '\(query)'")
             placesClient?.autocompleteQuery(query, bounds: bounds, filter: filter, callback: { (results, error) -> Void in
                 if error != nil {
                     println("Autocomplete error \(error) for query '\(query)'")
                     return
                 }
                 
-                println("Populating results for query '\(query)'")
+                //println("Populating results for query '\(query)'")
                 self.data = [GMSAutocompletePrediction]()
                 for result in results! {
                     if let result = result as? GMSAutocompletePrediction {
                         self.data!.append(result)
                         self.destinationEntry!.autoCompleteStrings?.append(result.attributedFullText.string)
                         self.locationDictionary[result.attributedFullText.string] = result
-                        println(self.destinationEntry!.autoCompleteStrings?.count)
+                        //println(self.destinationEntry!.autoCompleteStrings?.count)
                     }
                 }
             })
@@ -271,7 +283,7 @@ extension NewPathViewController {
                 if let p = place {
                     //Adding GMSPlace (User Destination) to list
                     self?.locationList.append(p)
-                    println("LocationList: \(self?.locationList)")
+                    //println("LocationList: \(self?.locationList)") //Displays All Items in List
                 } else {
                     println("No place details for \(placeid)")
                 }
