@@ -15,6 +15,8 @@ class PathDescriptionViewController: UIViewController {
     var path: Path? {
         didSet {
             displayPath(path)
+            println(path?.start.name)
+            println(path?.pathName)
         }
     }
     
@@ -43,9 +45,11 @@ class PathDescriptionViewController: UIViewController {
     /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        var currentPath = Path()
-        let pathViewController = segue.destinationViewController as! PathDescriptionViewController
-        pathViewController.path = currentPath
+        if(segue.identifier == "EditingPath") {
+            let pathViewController = segue.destinationViewController as! NewPathViewController
+            pathViewController.pathNameEntry.text = path?.pathName
+            pathViewController.startPointEntry.text = path?.start.name
+        }
     }*/
 
 }
