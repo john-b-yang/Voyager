@@ -15,6 +15,7 @@ class PathTableViewController: UITableViewController {
     
     @IBOutlet var tableViewObj: UITableView!
     @IBOutlet weak var defaultLabel: UILabel!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     var paths: Results<Path>! {
         didSet {
@@ -33,9 +34,18 @@ class PathTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableViewObj.reloadData()
         tableViewObj.dataSource = self
+        
+        if let urlJson = JSONParser.synchronousRequest("https://maps.googleapis.com/maps/api/directions/json?origin=Beijing&destination=Alexandria&key=AIzaSyDogaZ1qJ4T7UVMqJKWKBXepNhlAbsMZyk") {
+            let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
+            var parser = JSONParser(jsonString: dataFromNetwork! )
+            parser.getDistance()
+            parser.getTime()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
+        addButton.enabled = true
+        
         let realm = Realm()
         paths = realm.objects(Path).sorted("pathName", ascending: true)
         defaultLabel.hidden = false
@@ -170,6 +180,9 @@ class PathTableViewController: UITableViewController {
         if(segue.identifier == "showExistingPath") {
             let pathViewController = segue.destinationViewController as! PathDescriptionViewController
             pathViewController.path = selectedPath
+        }
+        if (segue.identifier == "createNewPath") {
+            addButton.enabled = false
         }
     }
     

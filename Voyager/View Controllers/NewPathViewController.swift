@@ -133,6 +133,13 @@ extension NewPathViewController {
         tapRecognizer.addTarget(self, action: "didTapView")
         self.view.addGestureRecognizer(tapRecognizer)
     }
+    func removeGestureRecognizers() {
+        if let recognizers = self.view.gestureRecognizers {
+            for recognizer in recognizers {
+                self.view.removeGestureRecognizer((recognizer as? UIGestureRecognizer)!)
+            }
+        }
+    }
     
     func didTapView() {
         self.view.endEditing(true)
@@ -180,16 +187,16 @@ extension NewPathViewController {
     }
     
     func searchStart(query: String) {
+        removeGestureRecognizers()
         let filter = GMSAutocompleteFilter()
         var bounds: GMSCoordinateBounds!
         
         //Checking if there is a registered user location
         if let coord = self.userLocation {
             bounds = GMSCoordinateBounds(coordinate: coord, coordinate: coord)
-            println("Bounds: \(bounds)")
         } else {
             bounds = GMSCoordinateBounds()
-            println("Not working")
+            println("Bounds not working")
         }
         
         self.startPointEntry!.autoCompleteStrings?.removeAll(keepCapacity: false)
@@ -219,6 +226,7 @@ extension NewPathViewController {
     }
     
     func search(query: String) {
+        removeGestureRecognizers()
         let filter = GMSAutocompleteFilter()
         var bounds: GMSCoordinateBounds!
         
@@ -288,7 +296,7 @@ extension NewPathViewController {
                     println("No place details for \(placeid)")
                 }
             })
-            
+            self!.checkExternalTaps()
             println(self?.destinationList)
             self!.destinationTableView.reloadData()
         }
@@ -315,6 +323,7 @@ extension NewPathViewController {
                 }
             })
         }
+        self.checkExternalTaps()
     }
 }
 

@@ -94,11 +94,12 @@
                     <navigationItem key="navigationItem" title="Paths" id="5h1-Jj-SAq">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="RFg-LJ-wnD">
                             <connections>
-                                <segue destination="4xk-40-6uK" kind="show" id="huj-1k-Qaq"/>
+                                <segue destination="4xk-40-6uK" kind="show" identifier="createNewPath" id="huj-1k-Qaq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="RFg-LJ-wnD" id="RC2-ZF-NK9"/>
                         <outlet property="defaultLabel" destination="Mbc-x0-Q0x" id="Mq1-Yq-2qM"/>
                         <outlet property="tableViewObj" destination="uT8-pV-Xco" id="mrl-3q-BIv"/>
                         <segue destination="dAE-2z-Mei" kind="show" identifier="showExistingPath" id="2Fm-Eu-MHh"/>
@@ -359,7 +360,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="huj-1k-Qaq"/>
         <segue reference="2Fm-Eu-MHh"/>
+        <segue reference="huj-1k-Qaq"/>
     </inferredMetricsTieBreakers>
 </document>
