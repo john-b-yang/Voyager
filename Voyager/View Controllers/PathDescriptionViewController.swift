@@ -12,20 +12,24 @@ import RealmSwift
 
 class PathDescriptionViewController: UIViewController {
     
+    @IBOutlet weak var dashboardTitle: UINavigationItem!
+
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    
     var path: Path? {
         didSet {
             displayPath(path)
-            println(path?.start.name)
-            println(path?.pathName)
+            dashboardTitle.title = path?.pathName
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.toolbarHidden = true
     }
     
     override func viewDidLoad() {
-        self.navigationController?.toolbarHidden = false
+        self.navigationController?.toolbarHidden = true
     }
 
     override func didReceiveMemoryWarning() {

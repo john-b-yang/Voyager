@@ -14,9 +14,9 @@ class URLParser {
     var APIKey = "AIzaSyDogaZ1qJ4T7UVMqJKWKBXepNhlAbsMZyk"
     
     func createURL (start: String, end: String) -> String {
-        urlRequest = urlRequest + "origin="
+        urlRequest = urlRequest + "origin=place_id:"
         urlRequest = urlRequest + start
-        urlRequest = urlRequest + "&destination="
+        urlRequest = urlRequest + "&destination=place_id:"
         urlRequest = urlRequest + end
         
         /*
@@ -30,5 +30,23 @@ class URLParser {
         urlRequest = urlRequest + "&key="
         urlRequest = urlRequest + APIKey
         return urlRequest
+    }
+    
+    func getDistance() -> Int {
+        if let urlJson = JSONParser.synchronousRequest(urlRequest) {
+            let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
+            var parser = JSONParser(jsonString: dataFromNetwork!)
+            return parser.getDistance()
+        }
+        return 0
+    }
+    
+    func getTime() -> Int {
+        if let urlJson = JSONParser.synchronousRequest(urlRequest) {
+            let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
+            var parser = JSONParser(jsonString: dataFromNetwork!)
+            return parser.getTime()
+        }
+        return 0
     }
 }

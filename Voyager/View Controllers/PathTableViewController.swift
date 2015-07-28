@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import GoogleMaps
 
 class PathTableViewController: UITableViewController {
     
@@ -34,13 +35,6 @@ class PathTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableViewObj.reloadData()
         tableViewObj.dataSource = self
-        
-        if let urlJson = JSONParser.synchronousRequest("https://maps.googleapis.com/maps/api/directions/json?origin=Beijing&destination=Alexandria&key=AIzaSyDogaZ1qJ4T7UVMqJKWKBXepNhlAbsMZyk") {
-            let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
-            var parser = JSONParser(jsonString: dataFromNetwork! )
-            parser.getDistance()
-            parser.getTime()
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,47 +56,54 @@ class PathTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func createLocation(gmsplace: GMSPlace) -> Location {
+        var location = Location()
+        location.name = gmsplace.name
+        location.address = gmsplace.formattedAddress
+        location.placeID = gmsplace.placeID
+        location.latitude = gmsplace.coordinate.latitude
+        location.longitude = gmsplace.coordinate.longitude
+        return location
+    }
+    
     @IBAction func unwindToSegue(segue: UIStoryboardSegue) {
-        let source = segue.sourceViewController as! NewPathViewController
+        
         if let identifier = segue.identifier {
+            
             let realm = Realm()
             var alert: UIAlertView!
+            
             switch identifier {
             case "Save" :
+                let source = segue.sourceViewController as! NewPathViewController
+                
                 if let name = source.pathName {
                     if let start = source.startLocation {
-                        if !source.locationList.isEmpty {
-                            
-                            let newPath = Path()
-                            newPath.pathName = source.pathName
-                            
-                            var location = Location()
-                            for var i = 0; i < source.locationList.count; i++ {
-                                var gmsplace = source.locationList[i]
-                                location.name = gmsplace.name
-                                location.address = gmsplace.formattedAddress
-                                location.placeID = gmsplace.placeID
-                                location.latitude = gmsplace.coordinate.latitude
-                                location.longitude = gmsplace.coordinate.longitude
-                            }
-                            newPath.initialList.append(location)
-                            
-                            var startLocation = Location()
-                            var startGMSPlace = source.startLocation
-                            startLocation.name = startGMSPlace.name
-                            startLocation.address = startGMSPlace.formattedAddress
-                            startLocation.placeID = startGMSPlace.placeID
-                            startLocation.latitude = startGMSPlace.coordinate.latitude
-                            startLocation.longitude = startGMSPlace.coordinate.longitude
-                            newPath.start = startLocation
-                            
-                            //TODO: Append location to list
-                            realm.write() {
-                                realm.add(newPath)
-                            }
+                        if let end = source.endLocation {
+                            if !source.locationList.isEmpty {
+                                
+                                let newPath = Path()
+                                newPath.pathName = source.pathName
+                                
+                                for var i = 0; i < source.locationList.count; i++ {
+                                    var gmsplace = source.locationList[i]
+                                    newPath.initialList.append(createLocation(gmsplace))
+                                }
+                                
+                                var startGMSPlace = source.startLocation
+                                newPath.start = createLocation(startGMSPlace)
+                                
+                                var endGMSPlace = source.endLocation
+                                newPath.end = createLocation(endGMSPlace)
 
+                                realm.write() {
+                                    realm.add(newPath)
+                                }
+                            } else {
+                                source.displayAlert("Error", alertMessage: "Please enter at least one destination")
+                            }
                         } else {
-                            source.displayAlert("Error", alertMessage: "Please enter at least one destination")
+                            source.displayAlert("Error", alertMessage: "Please enter an end location")
                         }
                     } else {
                         source.displayAlert("Error", alertMessage: "Please enter a start location")
@@ -114,63 +115,20 @@ class PathTableViewController: UITableViewController {
                 realm.write() {
                     realm.delete(self.selectedPath!)
                 }
+                
+                let source = segue.sourceViewController as! PathDescriptionViewController
+                source.path = nil
+                
             default:
                 //Cancel Button
-                println("I see how it is")
+                println("Cancelled")
             }
             
             paths = realm.objects(Path).sorted("pathName", ascending: true)
         }
     }
 
-    // MARK: - Table view data source
-    
-    //override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    // #warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    //return 0
-    //}
-    
-    //override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // #warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    //return self.paths.count
-    //}
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the item to be re-orderable.
-    return true
-    }
-    */
+
     
     
     // MARK: - Navigation
