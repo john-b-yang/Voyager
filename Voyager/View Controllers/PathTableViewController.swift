@@ -96,6 +96,8 @@ class PathTableViewController: UITableViewController {
                                 var endGMSPlace = source.endLocation
                                 newPath.end = createLocation(endGMSPlace)
                                 
+                                newPath.createPath()
+                                
                                 realm.write() {
                                     realm.add(newPath)
                                 }
@@ -128,9 +130,6 @@ class PathTableViewController: UITableViewController {
             paths = realm.objects(Path).sorted("pathName", ascending: true)
         }
     }
-
-
-    
     
     // MARK: - Navigation
     

@@ -11,9 +11,9 @@ import RealmSwift
 
 //All variables correspond with GMSPlace object
 class Location : Object {
-    dynamic var name: String! //name
+    dynamic var name: String = "" //name
     dynamic var placeID: String! //placeID
-    var latitude: Double! //GMSPlace => coordinate => (CLLocation) Coordinate2D => Degrees* => double
-    var longitude: Double! //Same as latitude except other number
+    dynamic var latitude: Double = 0 //GMSPlace => coordinate => (CLLocation) Coordinate2D => Degrees* => double
+    dynamic var longitude: Double = 0 //Same as latitude except other number
     dynamic var address: String! //formattedAddress
 }

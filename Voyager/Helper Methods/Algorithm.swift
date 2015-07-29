@@ -9,10 +9,10 @@
 import Foundation
 
 class Algorithm {
-    var distanceMatrix = Array<Array<Double>>()
-    var timeMatrix = Array<Array<Int>>()
+    var distanceMatrix: [[Double]]!
+    var timeMatrix: [[Int]]!
     
-    func executeOrder(start: Location, end: Location, initialList: [Location]) {
+    func buildFullList(start: Location, end: Location, initialList: [Location]) -> [Location] {
         var fullList = [Location]()
         fullList.append(start)
         println(start.placeID)
@@ -23,10 +23,16 @@ class Algorithm {
         fullList.append(end)
         println(end.placeID)
         
+        return fullList
+    }
+    
+    func buildDistanceMatrix(start: Location, end: Location, initialList: [Location]) -> [[Double]] {
+        var fullList = buildFullList(start, end: end, initialList: initialList)
+        
         var parser = URLParser()
         
-        var tempDistanceArray = Array<Double>()
-        var tempTimeArray = Array<Int>()
+        var tempDistanceArray: [Double]!
+        var tempTimeArray: [Int]!
         
         for column in 0...fullList.count - 1 {
             
@@ -44,5 +50,23 @@ class Algorithm {
             distanceMatrix.append(tempDistanceArray)
             //timeMatrix.append(tempTimeArray)
         }
+        
+        return distanceMatrix
+        
+//        var locationList: [[Double]] = []
+//        var tempList: [Double]
+//        for var i = 0; i < distanceMatrix.count; i++ {
+//            for var j = 0; j < distanceMatrix[0].count; j++ {
+//                locationList.append(distanceMatrix)
+//            }
+//        }
+//        
+//        return locationList
+    }
+    
+    //MARK: Algorithm
+    func algo(start: Location, end: Location, initialList: [Location]) -> [Location] {
+        var fullList = buildFullList(start, end: end, initialList: initialList)
+        return fullList
     }
 }
