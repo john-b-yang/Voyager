@@ -95,10 +95,11 @@ class PathTableViewController: UITableViewController {
                                 
                                 var endGMSPlace = source.endLocation
                                 newPath.end = createLocation(endGMSPlace)
-
+                                
                                 realm.write() {
                                     realm.add(newPath)
                                 }
+                                
                             } else {
                                 source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                             }

@@ -32,14 +32,14 @@ class JSONParser {
             json = JSON(data: jsonString)
     }
     
-    func getDistance() -> Int {
+    func getDistance() -> Double {
         let routes = json["routes"].arrayValue
         let legs = routes[0]["legs"].arrayValue
         let distance = legs[0]["distance"].dictionaryValue
         let distanceText = distance["text"]!.stringValue
         let distanceArray = split(distanceText) {$0 == " "}
         let stringReturn = distanceArray[0].stringByReplacingOccurrencesOfString(",", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        let returnValue = stringReturn.toInt()!
+        let returnValue = (stringReturn as NSString).doubleValue
         return returnValue
     }
     
@@ -53,14 +53,14 @@ class JSONParser {
         var hours = 0
         var minutes = 0
         
-        
         //Check if the strings are valid (in case actual time only has hours, minutes, not days
         //If ok, then convert to int. If not, just return 0
         
+        println(timeText)
         //For Days
         let daysArray = timeText.componentsSeparatedByString(" days")
         var dayString = daysArray[0].stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        if dayString.rangeOfString("hours") == nil {
+        if dayString.rangeOfString("hours") == nil && dayString.rangeOfString("min") == nil {
             if !dayString.isEmpty {
                 days = dayString.toInt()!
                 //println("\(days)")
@@ -70,7 +70,7 @@ class JSONParser {
         //For Hours
         let hoursArray = daysArray[daysArray.count - 1].componentsSeparatedByString(" hours")
         var hoursString = hoursArray[0].stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        if hoursString.rangeOfString("minutes") == nil && hoursString.rangeOfString("days") == nil {
+        if hoursString.rangeOfString("min") == nil && hoursString.rangeOfString("days") == nil {
             if !hoursString.isEmpty {
                 hours = hoursString.toInt()!
                 //println("\(hours)")

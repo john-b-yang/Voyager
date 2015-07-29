@@ -14,10 +14,10 @@ class URLParser {
     var APIKey = "AIzaSyDogaZ1qJ4T7UVMqJKWKBXepNhlAbsMZyk"
     
     func createURL (start: String, end: String) -> String {
-        urlRequest = urlRequest + "origin=place_id:"
-        urlRequest = urlRequest + start
-        urlRequest = urlRequest + "&destination=place_id:"
-        urlRequest = urlRequest + end
+        urlRequest = "https://maps.googleapis.com/maps/api/directions/json?" + "origin=place_id:"
+        urlRequest += start
+        urlRequest += "&destination=place_id:"
+        urlRequest += end
         
         /*
         Add if statements to append various commands that adjust the route given
@@ -27,12 +27,12 @@ class URLParser {
         Check dis: https://developers.google.com/maps/documentation/directions/intro
         */
         
-        urlRequest = urlRequest + "&key="
-        urlRequest = urlRequest + APIKey
+        urlRequest += "&key="
+        urlRequest += APIKey
         return urlRequest
     }
     
-    func getDistance() -> Int {
+    func getDistance() -> Double {
         if let urlJson = JSONParser.synchronousRequest(urlRequest) {
             let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
             var parser = JSONParser(jsonString: dataFromNetwork!)

@@ -266,7 +266,7 @@ extension NewPathViewController {
                         self.data!.append(result)
                         self.endPointEntry!.autoCompleteStrings?.append(result.attributedFullText.string)
                         self.endDictionary[result.attributedFullText.string] = result
-                        println(self.endPointEntry!.autoCompleteStrings?.count)
+                        //println(self.endPointEntry!.autoCompleteStrings?.count)
                     }
                 }
             })
