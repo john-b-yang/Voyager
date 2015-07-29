@@ -199,6 +199,7 @@
                                         <connections>
                                             <outlet property="endLabel" destination="6eW-YK-F1B" id="7SP-7n-Vdi"/>
                                             <outlet property="startLabel" destination="6wq-9l-4Zm" id="ZQj-vd-xqZ"/>
+                                            <segue destination="Y26-an-FXS" kind="show" id="cpn-wl-9kc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -249,6 +250,24 @@
                 <exit id="eg7-so-FVk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-281" y="688"/>
+        </scene>
+        <!--Navigate View Controller-->
+        <scene sceneID="RO4-my-OD7">
+            <objects>
+                <viewController id="Y26-an-FXS" customClass="NavigateViewController" customModule="Voyager" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XDW-ne-hJx"/>
+                        <viewControllerLayoutGuide type="bottom" id="T4h-cn-l9M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0MG-US-CaP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1v-0n-oTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="472" y="688"/>
         </scene>
         <!--New Path-->
         <scene sceneID="Fef-M9-4rJ">
@@ -486,6 +505,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PSD-ri-3B3"/>
+        <segue reference="huj-1k-Qaq"/>
     </inferredMetricsTieBreakers>
 </document>

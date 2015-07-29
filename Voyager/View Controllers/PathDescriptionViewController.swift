@@ -25,6 +25,8 @@ class PathDescriptionViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var navigationTableView: UITableView!
     
+    var shouldUseGoogleMaps: Bool!
+    
     var path: Path? {
         didSet {
             displayPath(path)
@@ -50,6 +52,8 @@ class PathDescriptionViewController: UIViewController {
         
         self.navigationTableView.reloadData()
         navigationTableView.dataSource = self
+        
+        shouldUseGoogleMaps = (UIApplication.sharedApplication().canOpenURL(NSURL(string: "comgooglemaps://")!))
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,7 +74,6 @@ class PathDescriptionViewController: UIViewController {
         
         var latitudeDegrees: CLLocationDegrees = latitude!
         var longitudeDegrees: CLLocationDegrees = longitude!
-        println("\(latitudeDegrees), \(longitudeDegrees)")
         
         var camera = GMSCameraPosition.cameraWithLatitude(latitudeDegrees, longitude: longitudeDegrees, zoom: 8)
         self.mapView.animateToCameraPosition(camera)
@@ -137,4 +140,9 @@ extension PathDescriptionViewController: UITableViewDataSource {
         
         return cell
     }
+}
+
+//Open Google Maps + NAVIGATION
+extension PathDescriptionViewController {
+    
 }
