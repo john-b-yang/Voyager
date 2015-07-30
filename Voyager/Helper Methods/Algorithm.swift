@@ -12,7 +12,7 @@ class Algorithm {
     var distanceMatrix: [[Double]]!
     var timeMatrix: [[Int]]!
     
-    func buildFullList(start: Location, end: Location, initialList: [Location]) -> [Location] {
+    func buildFullList(start: Location, initialList: [Location]) -> [Location] {
         var fullList = [Location]()
         fullList.append(start)
         println(start.placeID)
@@ -20,14 +20,12 @@ class Algorithm {
             fullList.append(initialList[i])
             println(initialList[i].placeID)
         }
-        fullList.append(end)
-        println(end.placeID)
         
         return fullList
     }
     
-    func buildDistanceMatrix(start: Location, end: Location, initialList: [Location]) -> [[Double]] {
-        var fullList = buildFullList(start, end: end, initialList: initialList)
+    func buildDistanceMatrix(start: Location, initialList: [Location]) -> [[Double]] {
+        var fullList = buildFullList(start, initialList: initialList)
         
         var parser = URLParser()
         
@@ -65,8 +63,8 @@ class Algorithm {
     }
     
     //MARK: Algorithm
-    func algo(start: Location, end: Location, initialList: [Location]) -> [Location] {
-        var fullList = buildFullList(start, end: end, initialList: initialList)
+    func algo(start: Location, initialList: [Location]) -> [Location] {
+        var fullList = buildFullList(start, initialList: initialList)
         return fullList
     }
 }

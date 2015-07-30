@@ -90,6 +90,7 @@ class PathDescriptionViewController: UIViewController {
         
         // Available map types: kGMSTypeNormal, kGMSTypeSatellite, kGMSTypeHybrid,
         // kGMSTypeTerrain, kGMSTypeNone
+        
         mapView.mapType = kGMSTypeNormal
         mapView.animateToCameraPosition(camera)
     }
@@ -101,7 +102,8 @@ class PathDescriptionViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "Navigate") {
             let pathViewController = segue.destinationViewController as! NavigateViewController
-            //pathViewController.location1 =
+            pathViewController.location1 = selectedLocation1
+            pathViewController.location2 = selectedLocation2
         }
     }
 }
@@ -141,11 +143,22 @@ extension PathDescriptionViewController: UITableViewDataSource {
         let part1 = self.path?.locationList[indexPath.row]
         let part2 = self.path?.locationList[indexPath.row + 1]
         
+        selectedLocation1 = part1
+        selectedLocation2 = part2
+        
         cell.location1 = part1
         cell.location2 = part2
         cell.startLabel.text = "From: \(part1!.name)"
         cell.endLabel.text = "To: \(part2!.name)"
         
         return cell
+    }
+}
+
+extension PathDescriptionViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedLocation1 = self.path?.locationList[indexPath.row]
+        selectedLocation2 = self.path?.locationList[indexPath.row + 1]
+        self.performSegueWithIdentifier("Navigate", sender: self)
     }
 }

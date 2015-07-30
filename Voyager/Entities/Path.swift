@@ -13,7 +13,6 @@ import RealmSwift
 class Path : Object {
     dynamic var pathName: String = "Placeholder"
     dynamic var start: Location!
-    dynamic var end: Location!
     dynamic var initialList = List<Location>()
     dynamic var modificationDate = NSDate()
     
@@ -27,9 +26,6 @@ class Path : Object {
         for var i = 0; i < initialList.count; i++ {
             tempList.append(initialList[i])
         }
-        tempList.append(end) //<= full list
-        
-        //tempList = Algorithm.algo(start, end, tempList)
         
         for var i = 0; i < tempList.count; i++ {
             locationList.append(tempList[i])

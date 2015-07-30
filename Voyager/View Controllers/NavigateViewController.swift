@@ -10,14 +10,33 @@ import UIKit
 
 class NavigateViewController: UIViewController {
 
-    var location1: Location!
-    var location2: Location!
+    var location1: Location? {
+        didSet {
+            println("1 Clear")
+            println(location1?.name)
+        }
+    }
+    
+    var location2: Location? {
+        didSet {
+            println("2 Clear")
+            println(location2?.name)
+        }
+    }
+    
     var shouldUseGoogleMaps: Bool!
+    
+    @IBOutlet weak var location1Label: UILabel!
+    @IBOutlet weak var location2Label: UILabel!
+    @IBOutlet weak var legNumber: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         shouldUseGoogleMaps = (UIApplication.sharedApplication().canOpenURL(NSURL(string: "comgooglemaps://")!))
-        // Do any additional setup after loading the view.
+        
+        location1Label.text = location1?.name
+        location2Label.text = location2?.name
+        legNumber.hidden = true
     }
 
     override func didReceiveMemoryWarning() {

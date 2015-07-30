@@ -79,34 +79,27 @@ class PathTableViewController: UITableViewController {
                 
                 if let name = source.pathName {
                     if let start = source.startLocation {
-                        if let end = source.endLocation {
-                            if !source.locationList.isEmpty {
+                        if !source.locationList.isEmpty {
                                 
-                                let newPath = Path()
-                                newPath.pathName = source.pathName
-                                
-                                for var i = 0; i < source.locationList.count; i++ {
-                                    var gmsplace = source.locationList[i]
-                                    newPath.initialList.append(createLocation(gmsplace))
-                                }
-                                
-                                var startGMSPlace = source.startLocation
-                                newPath.start = createLocation(startGMSPlace)
-                                
-                                var endGMSPlace = source.endLocation
-                                newPath.end = createLocation(endGMSPlace)
-                                
-                                newPath.createPath()
-                                
-                                realm.write() {
-                                    realm.add(newPath)
-                                }
-                                
-                            } else {
-                                source.displayAlert("Error", alertMessage: "Please enter at least one destination")
+                            let newPath = Path()
+                            newPath.pathName = source.pathName
+                            
+                            for var i = 0; i < source.locationList.count; i++ {
+                                var gmsplace = source.locationList[i]
+                                newPath.initialList.append(createLocation(gmsplace))
                             }
+                            
+                            var startGMSPlace = source.startLocation
+                            newPath.start = createLocation(startGMSPlace)
+                            
+                            newPath.createPath()
+                            
+                            realm.write() {
+                                realm.add(newPath)
+                            }
+                                
                         } else {
-                            source.displayAlert("Error", alertMessage: "Please enter an end location")
+                            source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                         }
                     } else {
                         source.displayAlert("Error", alertMessage: "Please enter a start location")

@@ -275,20 +275,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ino-uT-CxA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leg of Journey" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ino-uT-CxA">
                                 <rect key="frame" x="16" y="196" width="568" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uX-V5-bT1">
-                                <rect key="frame" x="16" y="247" width="568" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvc-Xx-M9q">
-                                <rect key="frame" x="275" y="308" width="51" height="30"/>
+                                <rect key="frame" x="275" y="257" width="51" height="30"/>
                                 <state key="normal" title="Voyage">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -300,12 +294,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cZ6-8J-mdI" secondAttribute="trailing" id="2kI-vP-ZiM"/>
-                            <constraint firstItem="9uX-V5-bT1" firstAttribute="top" secondItem="ino-uT-CxA" secondAttribute="bottom" constant="30" id="47p-4U-ItW"/>
                             <constraint firstItem="cZ6-8J-mdI" firstAttribute="leading" secondItem="0MG-US-CaP" secondAttribute="leadingMargin" id="8Yc-No-HKl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="59i-HS-tyI" secondAttribute="trailing" id="HqU-wL-McP"/>
-                            <constraint firstItem="bvc-Xx-M9q" firstAttribute="top" secondItem="9uX-V5-bT1" secondAttribute="bottom" constant="40" id="MHu-tX-wC8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9uX-V5-bT1" secondAttribute="trailing" id="Nic-7r-TMO"/>
-                            <constraint firstItem="9uX-V5-bT1" firstAttribute="leading" secondItem="0MG-US-CaP" secondAttribute="leadingMargin" id="ODE-ER-sBF"/>
+                            <constraint firstItem="bvc-Xx-M9q" firstAttribute="top" secondItem="ino-uT-CxA" secondAttribute="bottom" constant="40" id="Neb-XA-Oas"/>
                             <constraint firstItem="59i-HS-tyI" firstAttribute="leading" secondItem="0MG-US-CaP" secondAttribute="leadingMargin" id="OJi-l6-uTc"/>
                             <constraint firstItem="ino-uT-CxA" firstAttribute="top" secondItem="cZ6-8J-mdI" secondAttribute="bottom" constant="30" id="Sv1-Uo-k0V"/>
                             <constraint firstItem="cZ6-8J-mdI" firstAttribute="top" secondItem="59i-HS-tyI" secondAttribute="bottom" constant="30" id="ahi-n9-5mG"/>
@@ -315,6 +306,11 @@
                             <constraint firstItem="ino-uT-CxA" firstAttribute="leading" secondItem="0MG-US-CaP" secondAttribute="leadingMargin" id="xda-JE-SLM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="legNumber" destination="ino-uT-CxA" id="xQz-p0-Zoe"/>
+                        <outlet property="location1Label" destination="59i-HS-tyI" id="UN8-ic-hq4"/>
+                        <outlet property="location2Label" destination="cZ6-8J-mdI" id="0fF-iI-iDu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A1v-0n-oTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -355,7 +351,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mX3-cQ-gbn" userLabel="Path Name Entry" customClass="AutoCompleteTextField" customModule="Voyager" customModuleProvider="target">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location will also be used as end point" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mX3-cQ-gbn" userLabel="Path Name Entry" customClass="AutoCompleteTextField" customModule="Voyager" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="102" width="584" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -392,7 +388,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="30" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Gxz-vG-Kh2">
-                                                <rect key="frame" x="-8" y="206" width="600" height="127"/>
+                                                <rect key="frame" x="-8" y="206" width="600" height="350"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <prototypes>
                                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationEntry" id="lfE-6C-V52" customClass="NewDestinationTableViewCell" customModule="Voyager" customModuleProvider="target">
@@ -427,30 +423,12 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Point" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAX-OT-ppJ">
-                                                <rect key="frame" x="8" y="341" width="584" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pu7-vX-T3y" customClass="AutoCompleteTextField" customModule="Voyager" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="370" width="584" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="enterEndLocation:" destination="4xk-40-6uK" eventType="editingDidEndOnExit" id="aV0-RR-n0Z"/>
-                                                </connections>
-                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Pu7-vX-T3y" secondAttribute="trailing" constant="8" id="3Rw-f1-ge2"/>
-                                            <constraint firstItem="QAX-OT-ppJ" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="4e1-sU-Jdo"/>
                                             <constraint firstItem="RnP-av-03X" firstAttribute="top" secondItem="LCa-DT-56Y" secondAttribute="bottom" constant="5" id="9Wj-7X-1wI"/>
                                             <constraint firstItem="XI6-8W-QKO" firstAttribute="top" secondItem="RnP-av-03X" secondAttribute="bottom" constant="10" id="AVD-Wr-QzA"/>
-                                            <constraint firstAttribute="trailing" secondItem="QAX-OT-ppJ" secondAttribute="trailing" constant="8" id="CEV-YN-dEH"/>
                                             <constraint firstItem="Cqh-uB-exP" firstAttribute="top" secondItem="SZw-pm-r73" secondAttribute="bottom" constant="5" id="D8P-Xb-10K"/>
-                                            <constraint firstItem="Pu7-vX-T3y" firstAttribute="top" secondItem="QAX-OT-ppJ" secondAttribute="bottom" constant="8" id="DnG-Km-vVp"/>
                                             <constraint firstAttribute="trailing" secondItem="mX3-cQ-gbn" secondAttribute="trailing" constant="8" id="Jua-mA-kyt"/>
                                             <constraint firstItem="Gxz-vG-Kh2" firstAttribute="top" secondItem="Cqh-uB-exP" secondAttribute="bottom" constant="8" id="L9Q-gt-0Ef"/>
                                             <constraint firstItem="SZw-pm-r73" firstAttribute="top" secondItem="mX3-cQ-gbn" secondAttribute="bottom" constant="10" id="LLY-Ri-HQt"/>
@@ -458,11 +436,8 @@
                                             <constraint firstItem="mX3-cQ-gbn" firstAttribute="top" secondItem="XI6-8W-QKO" secondAttribute="bottom" constant="5" id="O8Z-J9-Y1b"/>
                                             <constraint firstItem="SZw-pm-r73" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="VhG-e3-1ik"/>
                                             <constraint firstAttribute="trailing" secondItem="SZw-pm-r73" secondAttribute="trailing" constant="8" id="aOp-UI-Pp1"/>
-                                            <constraint firstAttribute="bottom" secondItem="Pu7-vX-T3y" secondAttribute="bottom" constant="200" id="baf-IA-h4V"/>
-                                            <constraint firstItem="QAX-OT-ppJ" firstAttribute="top" secondItem="Gxz-vG-Kh2" secondAttribute="bottom" constant="8" id="h2P-a1-GW2"/>
                                             <constraint firstItem="Gxz-vG-Kh2" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="-8" id="hYs-9A-ROi"/>
                                             <constraint firstItem="Cqh-uB-exP" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="hg0-Zj-USu"/>
-                                            <constraint firstItem="Pu7-vX-T3y" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="l2y-SB-AY9"/>
                                             <constraint firstItem="mX3-cQ-gbn" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="q6w-Jo-Eh2"/>
                                             <constraint firstAttribute="trailing" secondItem="RnP-av-03X" secondAttribute="trailing" constant="8" id="qpr-Yb-Bxq"/>
                                             <constraint firstItem="LCa-DT-56Y" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="sxm-l2-XYD"/>
@@ -486,6 +461,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ded-W7-HNa" secondAttribute="trailing" id="Lfz-wE-01i"/>
+                            <constraint firstItem="Mw9-Il-kb5" firstAttribute="top" secondItem="Gxz-vG-Kh2" secondAttribute="bottom" id="hHf-o2-19c"/>
                             <constraint firstItem="Ded-W7-HNa" firstAttribute="leading" secondItem="J8R-cR-mKm" secondAttribute="leading" id="sOB-WA-IGx"/>
                             <constraint firstItem="Ded-W7-HNa" firstAttribute="top" secondItem="J8R-cR-mKm" secondAttribute="top" id="tSF-ae-Ir9"/>
                             <constraint firstAttribute="bottom" secondItem="Ded-W7-HNa" secondAttribute="bottom" id="w2A-QY-Ref"/>
@@ -508,9 +484,6 @@
                     <connections>
                         <outlet property="destinationEntry" destination="Cqh-uB-exP" id="hpV-oA-Mc1"/>
                         <outlet property="destinationTableView" destination="Gxz-vG-Kh2" id="Drg-3k-o6t"/>
-                        <outlet property="endFieldBottomConstraint" destination="baf-IA-h4V" id="BKb-8c-xJe"/>
-                        <outlet property="endPointEntry" destination="Pu7-vX-T3y" id="FG7-YW-cUz"/>
-                        <outlet property="endPointLabel" destination="QAX-OT-ppJ" id="NhM-mc-teb"/>
                         <outlet property="pathNameEntry" destination="RnP-av-03X" id="EeS-S0-qZH"/>
                         <outlet property="startPointEntry" destination="mX3-cQ-gbn" id="Ruy-YA-kll"/>
                     </connections>
