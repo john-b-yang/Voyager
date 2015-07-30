@@ -10,6 +10,8 @@ import UIKit
 
 class NavigationTableViewCell: UITableViewCell {
 
+    var location1: Location!
+    var location2: Location!
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var endLabel: UILabel!
     

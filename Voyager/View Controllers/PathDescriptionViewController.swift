@@ -25,7 +25,8 @@ class PathDescriptionViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var navigationTableView: UITableView!
     
-    var shouldUseGoogleMaps: Bool!
+    var selectedLocation1: Location?
+    var selectedLocation2: Location?
     
     var path: Path? {
         didSet {
@@ -52,8 +53,6 @@ class PathDescriptionViewController: UIViewController {
         
         self.navigationTableView.reloadData()
         navigationTableView.dataSource = self
-        
-        shouldUseGoogleMaps = (UIApplication.sharedApplication().canOpenURL(NSURL(string: "comgooglemaps://")!))
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +74,7 @@ class PathDescriptionViewController: UIViewController {
         var latitudeDegrees: CLLocationDegrees = latitude!
         var longitudeDegrees: CLLocationDegrees = longitude!
         
-        var camera = GMSCameraPosition.cameraWithLatitude(latitudeDegrees, longitude: longitudeDegrees, zoom: 8)
+        var camera = GMSCameraPosition.cameraWithLatitude(latitudeDegrees, longitude: longitudeDegrees, zoom: 10)
         self.mapView.animateToCameraPosition(camera)
         
         for var i = 0; i < path?.locationList.count; i++ {
@@ -97,6 +96,13 @@ class PathDescriptionViewController: UIViewController {
     
     func displayMap(isMapView: Bool) {
         mapView.hidden = !isMapView
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "Navigate") {
+            let pathViewController = segue.destinationViewController as! NavigateViewController
+            //pathViewController.location1 =
+        }
     }
 }
 
@@ -135,14 +141,11 @@ extension PathDescriptionViewController: UITableViewDataSource {
         let part1 = self.path?.locationList[indexPath.row]
         let part2 = self.path?.locationList[indexPath.row + 1]
         
+        cell.location1 = part1
+        cell.location2 = part2
         cell.startLabel.text = "From: \(part1!.name)"
         cell.endLabel.text = "To: \(part2!.name)"
         
         return cell
     }
-}
-
-//Open Google Maps + NAVIGATION
-extension PathDescriptionViewController {
-    
 }

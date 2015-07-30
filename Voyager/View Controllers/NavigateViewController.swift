@@ -10,9 +10,13 @@ import UIKit
 
 class NavigateViewController: UIViewController {
 
+    var location1: Location!
+    var location2: Location!
+    var shouldUseGoogleMaps: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        shouldUseGoogleMaps = (UIApplication.sharedApplication().canOpenURL(NSURL(string: "comgooglemaps://")!))
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +25,26 @@ class NavigateViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func navigateButtonClicked(sender: AnyObject) {
+        if shouldUseGoogleMaps == true {
+            let url = NSURL(string: "comgooglemaps://?saddr=&daddr=\(location1!.latitude),\(location1!.longitude)")
+            UIApplication.sharedApplication().openURL(url!)
+        } else {
+            let url = NSURL(string: "http://maps.apple.com/maps?saddr=Current%20Location&daddr=\(location1!.latitude),\(location1!.longitude)")
+            UIApplication.sharedApplication().openURL(url!)
+        }
+//        } else {
+//            if shouldUseGoogleMaps == true {
+//                let url = NSURL(string: "comgooglemaps://")
+//                UIApplication.sharedApplication().openURL(url!)
+//
+//            } else {
+//                let url = NSURL(string: "http://maps.apple.com/?q=")
+//                UIApplication.sharedApplication().openURL(url!)
+//            }
+//        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -31,4 +55,5 @@ class NavigateViewController: UIViewController {
     }
     */
 
+    
 }
