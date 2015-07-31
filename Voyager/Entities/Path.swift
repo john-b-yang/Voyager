@@ -17,9 +17,12 @@ class Path : Object {
     dynamic var modificationDate = NSDate()
     
     dynamic var locationList = List<Location>()
-    dynamic var totalDistance: Int = 0
+    dynamic var totalDistance: Double = 0
     dynamic var totalTime: Int = 0
     
+    dynamic var units: String!
+    
+    //To reset algorithm / take it out, uncomment the lines
     func createPath() {
         var tempList = [Location]()
         //tempList.append(start)
@@ -29,13 +32,13 @@ class Path : Object {
         //tempList.append(start)
         
         var pathFinder = Algorithm()
-        var finalPath = pathFinder.algo(start, initialList: tempList)
+        var (finalPath, finalDistance) = pathFinder.algo(start, initialList: tempList)
+        units = pathFinder.getDistanceUnits()
         //var finalPath = tempList
         
+        totalDistance = finalDistance
         for var i = 0; i < finalPath.count; i++ {
             locationList.append(finalPath[i])
         }
-        
-        println(locationList)
     }
 }

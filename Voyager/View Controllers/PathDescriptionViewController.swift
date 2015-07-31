@@ -30,7 +30,6 @@ class PathDescriptionViewController: UIViewController {
     
     var path: Path? {
         didSet {
-            displayPath(path)
             dashboardTitle.title = path?.pathName
         }
     }
@@ -46,8 +45,9 @@ class PathDescriptionViewController: UIViewController {
         segmentedControl.setTitle("Description", forSegmentAtIndex: 0)
         segmentedControl.tintColor = StyleConstants.defaultBlueColor
         
-        distanceLabel.text = "Total Distance: \(path!.totalDistance)"
+        distanceLabel.text = "Total Distance: \(path!.totalDistance) \(path!.units)"
         timeLabel.text = "Total Time: \(path!.totalTime)"
+        timeLabel.hidden = false
         
         instantiateMap()
         
@@ -59,12 +59,6 @@ class PathDescriptionViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func displayPath(path: Path?) {
-        if let aPath = path {
-            println("Clear")
-        }
     }
     
     func instantiateMap() {

@@ -13,6 +13,8 @@ class URLParser {
     var urlRequest = "https://maps.googleapis.com/maps/api/directions/json?"
     var APIKey = "AIzaSyDogaZ1qJ4T7UVMqJKWKBXepNhlAbsMZyk"
     
+    var distanceUnits: String!
+    
     func createURL (start: String, end: String) -> String {
         urlRequest = "https://maps.googleapis.com/maps/api/directions/json?" + "origin=place_id:"
         urlRequest += start
@@ -36,7 +38,9 @@ class URLParser {
         if let urlJson = JSONParser.synchronousRequest(urlRequest) {
             let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
             var parser = JSONParser(jsonString: dataFromNetwork!)
-            return parser.getDistance()
+            var (distance, units) = parser.getDistance()
+            distanceUnits = units
+            return distance
         }
         return 0
     }

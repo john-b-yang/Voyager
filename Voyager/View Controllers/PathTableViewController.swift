@@ -77,12 +77,12 @@ class PathTableViewController: UITableViewController {
             case "Save" :
                 let source = segue.sourceViewController as! NewPathViewController
                 
-                if let name = source.pathName {
+                if !source.pathNameEntry.text.isEmpty {
                     if let start = source.startLocation {
                         if !source.locationList.isEmpty {
                                 
                             let newPath = Path()
-                            newPath.pathName = source.pathName
+                            newPath.pathName = source.pathNameEntry.text
                             
                             for var i = 0; i < source.locationList.count; i++ {
                                 var gmsplace = source.locationList[i]
@@ -97,7 +97,6 @@ class PathTableViewController: UITableViewController {
                             realm.write() {
                                 realm.add(newPath)
                             }
-                                
                         } else {
                             source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                         }
@@ -152,7 +151,10 @@ extension PathTableViewController: UITableViewDataSource{
         let aPath = paths[row] as Path
         cell.titleLabel?.text = aPath.pathName
         cell.titleLabel.textColor = StyleConstants.defaultBlueColor
+        cell.distanceLabel.text = "Total Distance: \(aPath.totalDistance) \(aPath.units)"
         cell.startLocationLabel.text = "Start: \(aPath.start.name)"
+        cell.timeLabel.hidden = true
+        
         cell.modificationDate.text = PathTableViewCell.dateFormatter.stringFromDate(aPath.modificationDate)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         

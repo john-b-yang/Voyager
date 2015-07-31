@@ -80,8 +80,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="distanceLabel" destination="CxR-Lf-qmP" id="unf-rs-t7y"/>
                                     <outlet property="modificationDate" destination="534-d2-UZ9" id="DKd-v4-4Zp"/>
                                     <outlet property="startLocationLabel" destination="3Fc-k9-QPx" id="if7-wH-mpW"/>
+                                    <outlet property="timeLabel" destination="HT6-Xy-Hd3" id="hht-Wz-UKK"/>
                                     <outlet property="titleLabel" destination="YAZ-Fl-4RV" id="5HT-w0-14p"/>
                                 </connections>
                             </tableViewCell>
@@ -338,9 +340,6 @@
                                                 <rect key="frame" x="8" y="36" width="584" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                <connections>
-                                                    <action selector="enterPathName:" destination="4xk-40-6uK" eventType="editingDidEndOnExit" id="6MK-4g-8ro"/>
-                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Path Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCa-DT-56Y">
                                                 <rect key="frame" x="8" y="10" width="552" height="21"/>

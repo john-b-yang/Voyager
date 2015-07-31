@@ -38,9 +38,7 @@ class NewPathViewController: UIViewController {
     @IBOutlet weak var startPointEntry: AutoCompleteTextField!
     @IBOutlet weak var pathNameEntry: UITextField!
     @IBOutlet weak var destinationTableView: UITableView!
-    
-    let textFieldColorUI = UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)
-    let textFieldColor = (UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)).CGColor
+
     let cellBorderWidth: CGFloat = 0.5
     
     let filter = GMSAutocompleteFilter()
@@ -108,7 +106,7 @@ extension NewPathViewController: UITableViewDataSource {
         let destination = self.destinationList[indexPath.row]
         
         cell.destinationLabel?.text = destination
-        cell.destinationLabel?.textColor = textFieldColorUI
+        cell.destinationLabel?.textColor = StyleConstants.defaultBlueColor
         
         return cell
     }
@@ -150,11 +148,6 @@ extension NewPathViewController {
         self.view.endEditing(true)
     }
     
-    @IBAction func enterPathName(sender: AnyObject) {
-        pathName = pathNameEntry.text
-        self.view.endEditing(true)
-    }
-    
     @IBAction func enterStartLocation(sender: AnyObject) {
         self.view.endEditing(true)
     }
@@ -184,7 +177,7 @@ extension NewPathViewController {
         search(textField.text)
     }
     
-    func startFieldDidChange(textField: UITextField){
+    func startFieldDidChange(textField: UITextField) {
         if let strings = self.startPointEntry?.autoCompleteStrings {
             println("Auto Complete String is not nil - start")
         } else {
@@ -300,7 +293,7 @@ extension NewPathViewController {
     func handleStartInput() {
         startPointEntry.onSelect = {[weak self] text, indexpath in
             self!.startPointEntry!.text = text
-            self!.startPointEntry!.textColor = self!.textFieldColorUI
+            self!.startPointEntry!.textColor = StyleConstants.defaultBlueColor
             
             var placeid = self?.startDictionary[text]?.placeID
             
