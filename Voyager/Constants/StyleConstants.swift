@@ -9,6 +9,6 @@
 import UIKit
 
 struct StyleConstants {
-    static let defaultBlueColor = UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)
+    static let defaultBlueColor = UIColor(hexString: "#6699CC")
     static let defaultYellowColor = UIColor.yellowColor()
 }

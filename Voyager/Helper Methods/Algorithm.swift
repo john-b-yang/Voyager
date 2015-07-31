@@ -9,9 +9,8 @@
 import Foundation
 
 class Algorithm {
-    var distanceMatrix: [[Double]]!
-    var timeMatrix: [[Int]]!
     
+    //Puts all locations into one list, with start location at index 0
     func buildFullList(start: Location, initialList: [Location]) -> [Location] {
         var fullList = [Location]()
         fullList.append(start)
@@ -20,11 +19,14 @@ class Algorithm {
             fullList.append(initialList[i])
             println(initialList[i].placeID)
         }
-        
         return fullList
     }
     
     func buildDistanceMatrix(start: Location, initialList: [Location]) -> [[Double]] {
+        
+        var distanceMatrix: [[Double]]!
+        var timeMatrix: [[Int]]!
+        
         var fullList = buildFullList(start, initialList: initialList)
         
         var parser = URLParser()
@@ -64,7 +66,41 @@ class Algorithm {
     
     //MARK: Algorithm
     func algo(start: Location, initialList: [Location]) -> [Location] {
-        var fullList = buildFullList(start, initialList: initialList)
+        var locationList = buildFullList(start, initialList: initialList)
+        var distanceMatrix = buildDistanceMatrix(start, initialList: initialList)
+        
+        var totalDistance: Double = 0
+        
+        var count = 0
+        var index = 0
+        var finalOrder = [Int]()
+        
+        while count < distanceMatrix[0].count {
+            var minimum: Double = 10000
+            var nextIndex = index
+            for var i = 0; i < distanceMatrix[0].count; i++ {
+                if index != i {
+                    if minimum < distanceMatrix[index][i] {
+                        minimum = distanceMatrix[index][i]
+                        nextIndex = i
+                    }
+                }
+            }
+            totalDistance += minimum
+            finalOrder.append(index)
+            index = nextIndex
+            count++
+        }
+        
+        totalDistance += distanceMatrix[index][0]
+        finalOrder.append(0)
+        var fullList = [Location]()
+        
+        for var j = 0; j < finalOrder.count; j++ {
+            fullList.append(locationList[finalOrder[j]])
+        }
+        
+        //return totalDistance
         return fullList
     }
 }

@@ -46,10 +46,10 @@ class NavigateViewController: UIViewController {
 
     @IBAction func navigateButtonClicked(sender: AnyObject) {
         if shouldUseGoogleMaps == true {
-            let url = NSURL(string: "comgooglemaps://?saddr=&daddr=\(location1!.latitude),\(location1!.longitude)")
+            let url = NSURL(string: "comgooglemaps://?saddr=\(location1!.latitude),\(location1!.longitude)&daddr=\(location2!.latitude),\(location2!.longitude)")
             UIApplication.sharedApplication().openURL(url!)
         } else {
-            let url = NSURL(string: "http://maps.apple.com/maps?saddr=Current%20Location&daddr=\(location1!.latitude),\(location1!.longitude)")
+            let url = NSURL(string: "http://maps.apple.com/maps?saddr=\(location1!.latitude),\(location1!.longitude)&daddr=\(location2!.latitude),\(location2!.longitude)")
             UIApplication.sharedApplication().openURL(url!)
         }
 //        } else {

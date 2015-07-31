@@ -15,7 +15,7 @@ class JSONParser {
     
    static func synchronousRequest (urlStr: String) -> NSString?{
         var nsurlstr = urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        if let url: NSURL! = NSURL(string: nsurlstr){
+        if let url: NSURL! = NSURL(string: nsurlstr) {
             var request = NSMutableURLRequest(URL: url!)
             request.HTTPMethod = "GET"
             var response: NSURLResponse?
@@ -37,6 +37,7 @@ class JSONParser {
         let legs = routes[0]["legs"].arrayValue
         let distance = legs[0]["distance"].dictionaryValue
         let distanceText = distance["text"]!.stringValue
+        
         let distanceArray = split(distanceText) {$0 == " "}
         let stringReturn = distanceArray[0].stringByReplacingOccurrencesOfString(",", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         let returnValue = (stringReturn as NSString).doubleValue

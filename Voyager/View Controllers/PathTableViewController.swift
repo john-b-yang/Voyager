@@ -151,7 +151,7 @@ extension PathTableViewController: UITableViewDataSource{
         
         let aPath = paths[row] as Path
         cell.titleLabel?.text = aPath.pathName
-        cell.titleLabel.textColor = UIColor(red: 154/225, green: 20/225, blue: 138/225, alpha: 1.0)
+        cell.titleLabel.textColor = StyleConstants.defaultBlueColor
         cell.startLocationLabel.text = "Start: \(aPath.start.name)"
         cell.modificationDate.text = PathTableViewCell.dateFormatter.stringFromDate(aPath.modificationDate)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator

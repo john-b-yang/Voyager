@@ -44,7 +44,7 @@ class PathDescriptionViewController: UIViewController {
         self.navigationController?.toolbarHidden = true
         segmentedControl.setTitle("Map View", forSegmentAtIndex: 1)
         segmentedControl.setTitle("Description", forSegmentAtIndex: 0)
-        segmentedControl.tintColor = UIColor.purpleColor()
+        segmentedControl.tintColor = StyleConstants.defaultBlueColor
         
         distanceLabel.text = "Total Distance: \(path!.totalDistance)"
         timeLabel.text = "Total Time: \(path!.totalTime)"
@@ -53,6 +53,7 @@ class PathDescriptionViewController: UIViewController {
         
         self.navigationTableView.reloadData()
         navigationTableView.dataSource = self
+        navigationTableView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,9 +143,6 @@ extension PathDescriptionViewController: UITableViewDataSource {
         
         let part1 = self.path?.locationList[indexPath.row]
         let part2 = self.path?.locationList[indexPath.row + 1]
-        
-        selectedLocation1 = part1
-        selectedLocation2 = part2
         
         cell.location1 = part1
         cell.location2 = part2

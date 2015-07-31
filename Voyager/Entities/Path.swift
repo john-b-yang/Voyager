@@ -26,9 +26,14 @@ class Path : Object {
         for var i = 0; i < initialList.count; i++ {
             tempList.append(initialList[i])
         }
+        tempList.append(start)
         
-        for var i = 0; i < tempList.count; i++ {
-            locationList.append(tempList[i])
+        //var pathFinder = Algorithm()
+        //var finalPath = pathFinder.algo(start, initialList: tempList)
+        var finalPath = tempList
+        
+        for var i = 0; i < finalPath.count; i++ {
+            locationList.append(finalPath[i])
         }
         
         println(locationList)

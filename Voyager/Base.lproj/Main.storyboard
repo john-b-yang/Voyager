@@ -199,7 +199,6 @@
                                         <connections>
                                             <outlet property="endLabel" destination="6eW-YK-F1B" id="7SP-7n-Vdi"/>
                                             <outlet property="startLabel" destination="6wq-9l-4Zm" id="ZQj-vd-xqZ"/>
-                                            <segue destination="Y26-an-FXS" kind="show" identifier="Navigate" id="cpn-wl-9kc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -244,6 +243,7 @@
                         <outlet property="navigationText" destination="U7C-t1-goy" id="RgW-Fm-iw8"/>
                         <outlet property="segmentedControl" destination="nlu-Rp-bv7" id="xRk-yl-cEq"/>
                         <outlet property="timeLabel" destination="J7M-vQ-Pje" id="gyQ-MV-71D"/>
+                        <segue destination="Y26-an-FXS" kind="show" identifier="Navigate" id="5Ie-yk-WlL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5KQ-aF-rhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -314,7 +314,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A1v-0n-oTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="472" y="688"/>
+            <point key="canvasLocation" x="394" y="688"/>
         </scene>
         <!--New Path-->
         <scene sceneID="Fef-M9-4rJ">

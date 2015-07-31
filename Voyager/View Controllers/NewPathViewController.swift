@@ -52,7 +52,7 @@ class NewPathViewController: UIViewController {
         
         placesClient = GMSPlacesClient()
         
-        pathNameEntry.layer.borderColor = textFieldColor
+        pathNameEntry.layer.borderColor = StyleConstants.defaultBlueColor?.CGColor
         pathNameEntry.layer.borderWidth = cellBorderWidth
         
         initializeAutocomplete(startPointEntry)
@@ -75,7 +75,7 @@ class NewPathViewController: UIViewController {
     }
     
     private func initializeAutocomplete(entry: AutoCompleteTextField) {
-        entry.layer.borderColor = textFieldColor
+        entry.layer.borderColor = StyleConstants.defaultBlueColor?.CGColor
         entry.layer.borderWidth = cellBorderWidth
         entry.autoCompleteStrings = []
         entry.maximumAutoCompleteCount = 10
