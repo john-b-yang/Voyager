@@ -22,15 +22,15 @@ class Path : Object {
     
     func createPath() {
         var tempList = [Location]()
-        tempList.append(start)
+        //tempList.append(start)
         for var i = 0; i < initialList.count; i++ {
             tempList.append(initialList[i])
         }
-        tempList.append(start)
+        //tempList.append(start)
         
-        //var pathFinder = Algorithm()
-        //var finalPath = pathFinder.algo(start, initialList: tempList)
-        var finalPath = tempList
+        var pathFinder = Algorithm()
+        var finalPath = pathFinder.algo(start, initialList: tempList)
+        //var finalPath = tempList
         
         for var i = 0; i < finalPath.count; i++ {
             locationList.append(finalPath[i])

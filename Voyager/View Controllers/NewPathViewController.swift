@@ -223,7 +223,7 @@ extension NewPathViewController {
                         self.data!.append(result)
                         self.startPointEntry!.autoCompleteStrings?.append(result.attributedFullText.string)
                         self.startDictionary[result.attributedFullText.string] = result
-                        println(self.startPointEntry!.autoCompleteStrings?.count)
+                        //println(self.startPointEntry!.autoCompleteStrings?.count)
                     }
                 }
             })
@@ -334,7 +334,7 @@ extension NewPathViewController : CLLocationManagerDelegate {
             }
             if placemarks.count > 0 {
                 let pm = placemarks[0] as! CLPlacemark
-                self.displayLocationInfo(pm)
+                //self.displayLocationInfo(pm)
             }
         })
     }
