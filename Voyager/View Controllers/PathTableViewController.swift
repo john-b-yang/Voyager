@@ -154,6 +154,7 @@ extension PathTableViewController: UITableViewDataSource{
         cell.distanceLabel.text = "Total Distance: \(aPath.totalDistance) \(aPath.units)"
         cell.startLocationLabel.text = "Start: \(aPath.start.name)"
         cell.timeLabel.hidden = true
+        //cell.contentView.backgroundColor = StyleConstants.defaultBlueColor
         
         cell.modificationDate.text = PathTableViewCell.dateFormatter.stringFromDate(aPath.modificationDate)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator

@@ -138,10 +138,12 @@ extension PathDescriptionViewController: UITableViewDataSource {
         let part1 = self.path?.locationList[indexPath.row]
         let part2 = self.path?.locationList[indexPath.row + 1]
         
+        //cell.contentView.backgroundColor = StyleConstants.defaultBlueColor
         cell.location1 = part1
         cell.location2 = part2
         cell.startLabel.text = "From: \(part1!.name)"
         cell.endLabel.text = "To: \(part2!.name)"
+        cell.pathSegmentNumber.text = "\(indexPath.row + 1)"
         
         return cell
     }
