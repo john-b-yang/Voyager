@@ -73,8 +73,9 @@ class PathDescriptionViewController: UIViewController {
         
         var camera = GMSCameraPosition.cameraWithLatitude(latitudeDegrees, longitude: longitudeDegrees, zoom: 10)
         self.mapView.animateToCameraPosition(camera)
+        var count = path?.locationList.count
         
-        for var i = 0; i < path?.locationList.count; i++ {
+        for var i = 0; i < count! - 1; i++ {
             latitude = path?.locationList[i].latitude
             longitude = path?.locationList[i].longitude
             var marker = GMSMarker()

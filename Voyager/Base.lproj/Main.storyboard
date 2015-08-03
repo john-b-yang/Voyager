@@ -445,6 +445,9 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9W1-Nf-06W">
+                                                <rect key="frame" x="200" y="264" width="200" height="2"/>
+                                            </progressView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -463,9 +466,11 @@
                                             <constraint firstItem="mX3-cQ-gbn" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="q6w-Jo-Eh2"/>
                                             <constraint firstAttribute="trailing" secondItem="RnP-av-03X" secondAttribute="trailing" constant="8" id="qpr-Yb-Bxq"/>
                                             <constraint firstItem="LCa-DT-56Y" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="sxm-l2-XYD"/>
+                                            <constraint firstItem="9W1-Nf-06W" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="200" id="tfv-EQ-1hU"/>
                                             <constraint firstItem="LCa-DT-56Y" firstAttribute="top" secondItem="UVm-bI-naW" secondAttribute="top" constant="10" id="uNQ-sp-huE"/>
                                             <constraint firstItem="RnP-av-03X" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="wmi-65-eXk"/>
                                             <constraint firstAttribute="trailing" secondItem="Cqh-uB-exP" secondAttribute="trailing" constant="8" id="x7G-hb-hnh"/>
+                                            <constraint firstAttribute="trailing" secondItem="9W1-Nf-06W" secondAttribute="trailing" constant="200" id="xlO-Y7-gpM"/>
                                             <constraint firstItem="XI6-8W-QKO" firstAttribute="leading" secondItem="UVm-bI-naW" secondAttribute="leading" constant="8" id="yCF-9A-fxI"/>
                                         </constraints>
                                     </view>
@@ -483,6 +488,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ded-W7-HNa" secondAttribute="trailing" id="Lfz-wE-01i"/>
+                            <constraint firstItem="9W1-Nf-06W" firstAttribute="top" secondItem="dAT-qG-BIS" secondAttribute="bottom" constant="200" id="Usr-5F-5KS"/>
                             <constraint firstItem="Mw9-Il-kb5" firstAttribute="top" secondItem="Gxz-vG-Kh2" secondAttribute="bottom" id="hHf-o2-19c"/>
                             <constraint firstItem="Ded-W7-HNa" firstAttribute="leading" secondItem="J8R-cR-mKm" secondAttribute="leading" id="sOB-WA-IGx"/>
                             <constraint firstItem="Ded-W7-HNa" firstAttribute="top" secondItem="J8R-cR-mKm" secondAttribute="top" id="tSF-ae-Ir9"/>
@@ -507,6 +513,7 @@
                         <outlet property="destinationEntry" destination="Cqh-uB-exP" id="hpV-oA-Mc1"/>
                         <outlet property="destinationTableView" destination="Gxz-vG-Kh2" id="Drg-3k-o6t"/>
                         <outlet property="pathNameEntry" destination="RnP-av-03X" id="EeS-S0-qZH"/>
+                        <outlet property="progressBar" destination="9W1-Nf-06W" id="um3-m9-e1o"/>
                         <outlet property="startPointEntry" destination="mX3-cQ-gbn" id="Ruy-YA-kll"/>
                     </connections>
                 </viewController>

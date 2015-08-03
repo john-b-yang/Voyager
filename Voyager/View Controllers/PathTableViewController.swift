@@ -35,6 +35,7 @@ class PathTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableViewObj.reloadData()
         tableViewObj.dataSource = self
+        navigationController?.navigationBar.barStyle = UIBarStyle.Black
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -80,6 +81,9 @@ class PathTableViewController: UITableViewController {
                 if !source.pathNameEntry.text.isEmpty {
                     if let start = source.startLocation {
                         if !source.locationList.isEmpty {
+                            
+                            let modValue = source.locationList.count
+                            source.progressBar.hidden = false
                                 
                             let newPath = Path()
                             newPath.pathName = source.pathNameEntry.text
@@ -97,6 +101,7 @@ class PathTableViewController: UITableViewController {
                             realm.write() {
                                 realm.add(newPath)
                             }
+                            source.progressBar.hidden = true
                         } else {
                             source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                         }

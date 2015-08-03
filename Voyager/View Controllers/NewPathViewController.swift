@@ -38,11 +38,13 @@ class NewPathViewController: UIViewController {
     @IBOutlet weak var startPointEntry: AutoCompleteTextField!
     @IBOutlet weak var pathNameEntry: UITextField!
     @IBOutlet weak var destinationTableView: UITableView!
+    @IBOutlet weak var progressBar: UIProgressView!
 
     let cellBorderWidth: CGFloat = 0.5
     
     let filter = GMSAutocompleteFilter()
     var bounds: GMSCoordinateBounds!
+    var counter: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +72,13 @@ class NewPathViewController: UIViewController {
 
         destinationTableView.dataSource = self
         self.destinationTableView.reloadData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        progressBar.setProgress(0, animated: true)
+        progressBar.hidden = true
+        
     }
     
     private func initializeAutocomplete(entry: AutoCompleteTextField) {

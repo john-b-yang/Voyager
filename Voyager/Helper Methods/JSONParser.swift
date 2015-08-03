@@ -12,6 +12,7 @@ import Foundation
 class JSONParser {
     
     var json: JSON
+    var isValidJSON: Bool!
     
    static func synchronousRequest (urlStr: String) -> NSString?{
         var nsurlstr = urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
@@ -30,6 +31,14 @@ class JSONParser {
     
     init(jsonString: NSData) {
             json = JSON(data: jsonString)
+    }
+    
+    func checkStatus() {
+        let status = json["status"].stringValue
+        if status == "OK" {
+            isValidJSON = true
+        }
+        isValidJSON = false
     }
     
     func getDistance() -> Double {

@@ -10,8 +10,6 @@ import Foundation
 
 class Algorithm {
     
-    var units: String!
-    
     //Puts all locations into one list, with start location at index 0
     func buildFullList(start: Location, initialList: [Location]) -> [Location] {
         var fullList = [Location]()
@@ -52,7 +50,6 @@ class Algorithm {
             distanceMatrix.append(tempDistanceArray)
             //timeMatrix.append(tempTimeArray)
         }
-        units = parser.distanceUnits
         return distanceMatrix
     }
     
@@ -76,8 +73,9 @@ class Algorithm {
         var index = 0
         var finalOrder = [Int]()
         
+        let defaultMax: Double = 10000
         while count < distanceMatrix.count {
-            var minimum: Double = 0
+            var minimum: Double = defaultMax
             var nextIndex = index
             for var i = 0; i < distanceMatrix[0].count; i++ {
                 if index != i {
@@ -85,9 +83,6 @@ class Algorithm {
                         if minimum > distanceMatrix[index][i] {
                             minimum = distanceMatrix[index][i]
                             nextIndex = i
-                        }
-                        if minimum == 0 {
-                            minimum = distanceMatrix[index][i]
                         }
                     }
                 }
@@ -98,7 +93,7 @@ class Algorithm {
             count++
         }
         
-        totalDistance += distanceMatrix[index][0]
+        totalDistance += distanceMatrix[index][0] - defaultMax
         finalOrder.append(0)
         var fullList = [Location]()
         
@@ -108,12 +103,5 @@ class Algorithm {
         
         //return totalDistance
         return (fullList, totalDistance)
-    }
-    
-    func getDistanceUnits() -> String{
-        if let unit = units {
-            return unit
-        }
-        return " "
     }
 }
