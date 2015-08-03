@@ -28,6 +28,8 @@ class PathDescriptionViewController: UIViewController {
     var selectedLocation1: Location?
     var selectedLocation2: Location?
     
+    var colorArray = [UIColor(hexString: "#6FFFE9"), UIColor(hexString:"#5BC0BE"), UIColor(hexString:"#3A506B"), UIColor(hexString: "#1C2541"), UIColor (hexString: "#0B132B")]
+    
     var path: Path? {
         didSet {
             dashboardTitle.title = path?.pathName
@@ -45,7 +47,7 @@ class PathDescriptionViewController: UIViewController {
         segmentedControl.setTitle("Description", forSegmentAtIndex: 0)
         segmentedControl.tintColor = StyleConstants.defaultBlueColor
         
-        distanceLabel.text = "Total Distance: \(path!.totalDistance) \(path!.units)"
+        distanceLabel.text = "Total Distance: \(path!.totalDistance) miles"
         timeLabel.text = "Total Time: \(path!.totalTime)"
         timeLabel.hidden = false
         
@@ -138,12 +140,18 @@ extension PathDescriptionViewController: UITableViewDataSource {
         let part1 = self.path?.locationList[indexPath.row]
         let part2 = self.path?.locationList[indexPath.row + 1]
         
-        //cell.contentView.backgroundColor = StyleConstants.defaultBlueColor
+        cell.numberBackground.layer.cornerRadius = cell.numberBackground.frame.size.width/2
+        cell.numberBackground.clipsToBounds = true
+        cell.numberBackground.layer.masksToBounds = true
+        cell.numberBackground.backgroundColor = colorArray[indexPath.row % colorArray.count]
+        
+        cell.numberText.text = "\(indexPath.row + 1)"
+        cell.numberText.textColor = UIColor.whiteColor()
+        
         cell.location1 = part1
         cell.location2 = part2
         cell.startLabel.text = "From: \(part1!.name)"
         cell.endLabel.text = "To: \(part2!.name)"
-        cell.pathSegmentNumber.text = "\(indexPath.row + 1)"
         
         return cell
     }

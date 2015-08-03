@@ -10,19 +10,8 @@ import UIKit
 
 class NavigateViewController: UIViewController {
 
-    var location1: Location? {
-        didSet {
-            println("1 Clear")
-            println(location1?.name)
-        }
-    }
-    
-    var location2: Location? {
-        didSet {
-            println("2 Clear")
-            println(location2?.name)
-        }
-    }
+    var location1: Location?
+    var location2: Location?
     
     var shouldUseGoogleMaps: Bool!
     

@@ -38,8 +38,7 @@ class URLParser {
         if let urlJson = JSONParser.synchronousRequest(urlRequest) {
             let dataFromNetwork = urlJson.dataUsingEncoding(NSUTF8StringEncoding)
             var parser = JSONParser(jsonString: dataFromNetwork!)
-            var (distance, units) = parser.getDistance()
-            distanceUnits = units
+            var distance = parser.getDistance()
             return distance
         }
         return 0

@@ -14,7 +14,8 @@ class NavigationTableViewCell: UITableViewCell {
     var location2: Location!
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var endLabel: UILabel!
-    @IBOutlet weak var pathSegmentNumber: UILabel!
+    @IBOutlet weak var numberBackground: UIView!
+    @IBOutlet weak var numberText: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

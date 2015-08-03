@@ -151,7 +151,7 @@ extension PathTableViewController: UITableViewDataSource{
         let aPath = paths[row] as Path
         cell.titleLabel?.text = aPath.pathName
         cell.titleLabel.textColor = StyleConstants.defaultBlueColor
-        cell.distanceLabel.text = "Total Distance: \(aPath.totalDistance) \(aPath.units)"
+        cell.distanceLabel.text = "Total Distance: \(aPath.totalDistance) miles"
         cell.startLocationLabel.text = "Start: \(aPath.start.name)"
         cell.timeLabel.hidden = true
         //cell.contentView.backgroundColor = StyleConstants.defaultBlueColor

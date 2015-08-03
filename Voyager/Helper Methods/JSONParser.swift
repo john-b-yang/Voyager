@@ -32,7 +32,7 @@ class JSONParser {
             json = JSON(data: jsonString)
     }
     
-    func getDistance() -> (Double, String) {
+    func getDistance() -> Double {
         let routes = json["routes"].arrayValue
         let legs = routes[0]["legs"].arrayValue
         let distance = legs[0]["distance"].dictionaryValue
@@ -40,9 +40,20 @@ class JSONParser {
         
         let distanceArray = split(distanceText) {$0 == " "}
         let stringReturn = distanceArray[0].stringByReplacingOccurrencesOfString(",", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        let returnValue = (stringReturn as NSString).doubleValue
+        
+        var returnValue = (stringReturn as NSString).doubleValue
         let distanceUnits = distanceArray[distanceArray.count - 1]
-        return (returnValue, distanceUnits)
+        
+        if distanceUnits == "km" {
+            returnValue = returnValue * 0.621371
+        } else if distanceUnits == "m" {
+            returnValue = returnValue * 0.000621371
+        } else if distanceUnits == "ft" {
+            returnValue = returnValue * 0.000189394
+        } else if distanceUnits == "yds" {
+            returnValue = returnValue * 0.000568182
+        }
+        return returnValue
     }
     
     func getTime() -> Int {

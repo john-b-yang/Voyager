@@ -70,8 +70,6 @@ class Algorithm {
         var locationList = buildFullList(start, initialList: initialList)
         var distanceMatrix = buildDistanceMatrix(locationList)
         
-        //printMatrix(distanceMatrix)
-        
         var totalDistance: Double = 0
         
         var count = 0
@@ -79,7 +77,7 @@ class Algorithm {
         var finalOrder = [Int]()
         
         while count < distanceMatrix.count {
-            var minimum: Double = 10000
+            var minimum: Double = 0
             var nextIndex = index
             for var i = 0; i < distanceMatrix[0].count; i++ {
                 if index != i {
@@ -87,6 +85,9 @@ class Algorithm {
                         if minimum > distanceMatrix[index][i] {
                             minimum = distanceMatrix[index][i]
                             nextIndex = i
+                        }
+                        if minimum == 0 {
+                            minimum = distanceMatrix[index][i]
                         }
                     }
                 }
