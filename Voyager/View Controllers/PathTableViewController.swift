@@ -96,10 +96,13 @@ class PathTableViewController: UITableViewController {
                             var startGMSPlace = source.startLocation
                             newPath.start = createLocation(startGMSPlace)
                             
-                            newPath.createPath()
-                            
-                            realm.write() {
-                                realm.add(newPath)
+                            var checkValue = newPath.createPath()
+                            if checkValue {
+                                realm.write() {
+                                    realm.add(newPath)
+                                }
+                            } else {
+                                source.displayAlert("Error", alertMessage: "The Route betwee")
                             }
                             source.progressBar.hidden = true
                         } else {

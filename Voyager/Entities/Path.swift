@@ -21,7 +21,7 @@ class Path : Object {
     dynamic var totalTime: Int = 0
     
     //To reset algorithm / take it out, uncomment the lines
-    func createPath() {
+    func createPath() -> Bool {
         var tempList = [Location]()
         //tempList.append(start)
         for var i = 0; i < initialList.count; i++ {
@@ -33,9 +33,13 @@ class Path : Object {
         var (finalPath, finalDistance) = pathFinder.algo(start, initialList: tempList)
         //var finalPath = tempList
         
-        totalDistance = Double(round(1000*finalDistance)/1000)
-        for var i = 0; i < finalPath.count; i++ {
-            locationList.append(finalPath[i])
+        if !finalPath.isEmpty {
+            totalDistance = Double(round(1000*finalDistance)/1000)
+            for var i = 0; i < finalPath.count; i++ {
+                locationList.append(finalPath[i])
+            }
+            return true
         }
+        return false
     }
 }

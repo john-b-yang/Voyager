@@ -42,7 +42,13 @@ class Algorithm {
                 var end = fullList[row].placeID
                 parser.createURL(start, end: end)
                 //println("NEW: \(parser.urlRequest)")
-                tempDistanceArray.append(parser.getDistance())
+                let distance = parser.getDistance()
+                if distance < 0 {
+                    var returnValue = [[Double]]()
+                    //returnValue.append()
+                    return [[Double]]()
+                }
+                tempDistanceArray.append(distance)
                 //println(parser.getDistance())
                 
                 //tempTimeArray.append(parser.getTime())
@@ -67,41 +73,41 @@ class Algorithm {
         var locationList = buildFullList(start, initialList: initialList)
         var distanceMatrix = buildDistanceMatrix(locationList)
         
-        var totalDistance: Double = 0
-        
-        var count = 0
-        var index = 0
-        var finalOrder = [Int]()
-        
-        let defaultMax: Double = 10000
-        while count < distanceMatrix.count {
-            var minimum: Double = defaultMax
-            var nextIndex = index
-            for var i = 0; i < distanceMatrix[0].count; i++ {
-                if index != i {
-                    if !contains(finalOrder, i) {
-                        if minimum > distanceMatrix[index][i] {
-                            minimum = distanceMatrix[index][i]
-                            nextIndex = i
+        if !distanceMatrix.isEmpty {
+            var totalDistance: Double = 0
+            var count = 0
+            var index = 0
+            var finalOrder = [Int]()
+            
+            let defaultMax: Double = 10000
+            while count < distanceMatrix.count {
+                var minimum: Double = defaultMax
+                var nextIndex = index
+                for var i = 0; i < distanceMatrix[0].count; i++ {
+                    if index != i {
+                        if !contains(finalOrder, i) {
+                            if minimum > distanceMatrix[index][i] {
+                                minimum = distanceMatrix[index][i]
+                                nextIndex = i
+                            }
                         }
                     }
                 }
+                totalDistance += minimum
+                finalOrder.append(index)
+                index = nextIndex
+                count++
             }
-            totalDistance += minimum
-            finalOrder.append(index)
-            index = nextIndex
-            count++
+            
+            totalDistance += distanceMatrix[index][0] - defaultMax
+            finalOrder.append(0)
+            var fullList = [Location]()
+            
+            for var j = 0; j < finalOrder.count; j++ {
+                fullList.append(locationList[finalOrder[j]])
+            }
+            return (fullList, totalDistance)
         }
-        
-        totalDistance += distanceMatrix[index][0] - defaultMax
-        finalOrder.append(0)
-        var fullList = [Location]()
-        
-        for var j = 0; j < finalOrder.count; j++ {
-            fullList.append(locationList[finalOrder[j]])
-        }
-        
-        //return totalDistance
-        return (fullList, totalDistance)
+        return ([Location](), 0)
     }
 }
