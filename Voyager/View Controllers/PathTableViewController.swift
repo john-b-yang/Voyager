@@ -102,7 +102,7 @@ class PathTableViewController: UITableViewController {
                                     realm.add(newPath)
                                 }
                             } else {
-                                source.displayAlert("Error", alertMessage: "The Route betwee")
+                                source.displayAlert("Routing Unavailable", alertMessage: "A route between \(newPath.locationList[0].name) and \(newPath.locationList[newPath.locationList.count - 1].name) could not be found. Sorry about the inconvenience")
                             }
                             source.progressBar.hidden = true
                         } else {

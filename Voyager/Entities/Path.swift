@@ -33,13 +33,14 @@ class Path : Object {
         var (finalPath, finalDistance) = pathFinder.algo(start, initialList: tempList)
         //var finalPath = tempList
         
-        if !finalPath.isEmpty {
-            totalDistance = Double(round(1000*finalDistance)/1000)
-            for var i = 0; i < finalPath.count; i++ {
-                locationList.append(finalPath[i])
-            }
-            return true
+        for var i = 0; i < finalPath.count; i++ {
+            locationList.append(finalPath[i])
         }
-        return false
+        if finalDistance > 0 {
+            totalDistance = Double(round(1000*finalDistance)/1000)
+            return true
+        } else {
+            return false
+        }
     }
 }

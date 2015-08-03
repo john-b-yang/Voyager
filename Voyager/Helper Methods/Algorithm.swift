@@ -44,9 +44,9 @@ class Algorithm {
                 //println("NEW: \(parser.urlRequest)")
                 let distance = parser.getDistance()
                 if distance < 0 {
-                    var returnValue = [[Double]]()
+                    var returnValue = [[Double(row), Double(column)]]
                     //returnValue.append()
-                    return [[Double]]()
+                    return returnValue
                 }
                 tempDistanceArray.append(distance)
                 //println(parser.getDistance())
@@ -73,7 +73,7 @@ class Algorithm {
         var locationList = buildFullList(start, initialList: initialList)
         var distanceMatrix = buildDistanceMatrix(locationList)
         
-        if !distanceMatrix.isEmpty {
+        if distanceMatrix.count == distanceMatrix[0].count {
             var totalDistance: Double = 0
             var count = 0
             var index = 0
@@ -108,6 +108,18 @@ class Algorithm {
             }
             return (fullList, totalDistance)
         }
-        return ([Location](), 0)
+        let index1 = Int(distanceMatrix[0][0])
+        var location1 = locationList[index1]
+        
+        let index2 = Int(distanceMatrix[0][1])
+        var location2 = locationList[index2]
+        
+        println("\(index1) \(index2)")
+        
+        var badLocation = [Location]()
+        badLocation.append(location1)
+        badLocation.append(location2)
+        
+        return (badLocation, 0)
     }
 }
