@@ -81,15 +81,13 @@ class PathTableViewController: UITableViewController {
                     if let start = source.startLocation {
                         if !source.locationList.isEmpty {
                             
-//                            source.activityIndicator.hidden = true
+                            source.progressBar.hidden = false
+                            let modValue = Double(source.locationList.count)
                             
-//                            source.progressBar.hidden = false
-//                            let modValue = Double(source.locationList.count)
-//                            
-//                            println("\(source.progressBar.hidden)")
+                            var k : Float = 0
+                            var interval: Float = Float(1.0 / modValue)
                             
-//                            var k : Float = 0
-//                            var interval: Float = Float(1.0 / modValue)
+                            source.activityIndicator.startAnimating()
                             
                             let newPath = Path()
                             newPath.pathName = source.pathNameEntry.text
@@ -97,8 +95,9 @@ class PathTableViewController: UITableViewController {
                             for var i = 0; i < source.locationList.count; i++ {
                                 var gmsplace = source.locationList[i]
                                 newPath.initialList.append(createLocation(gmsplace))
-//                                source.progressBar.progress = k
-//                                k += interval
+                                source.progressBar.setProgress(k, animated: true)
+                                k += interval
+                                println("ok")
                             }
                             
                             var startGMSPlace = source.startLocation
@@ -112,7 +111,7 @@ class PathTableViewController: UITableViewController {
                             } else {
                                 source.displayAlert("Routing Unavailable", alertMessage: "A route between \(newPath.locationList[0].name) and \(newPath.locationList[newPath.locationList.count - 1].name) could not be found. Sorry about the inconvenience")
                             }
-                            //source.progressBar.hidden = true
+                            source.activityIndicator.stopAnimating()
                         } else {
                             source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                         }

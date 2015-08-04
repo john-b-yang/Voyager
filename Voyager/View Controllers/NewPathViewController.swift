@@ -38,8 +38,8 @@ class NewPathViewController: UIViewController {
     @IBOutlet weak var startPointEntry: AutoCompleteTextField!
     @IBOutlet weak var pathNameEntry: UITextField!
     @IBOutlet weak var destinationTableView: UITableView!
-    @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var progressBar: UIProgressView! = UIProgressView(progressViewStyle: UIProgressViewStyle.Default)
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     let cellBorderWidth: CGFloat = 0.5
     
@@ -77,9 +77,9 @@ class NewPathViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        progressBar.setProgress(0, animated: true)
         
-        progressBar.hidden = true
+        progressBar.setProgress(0, animated: false)
+        progressBar.hidden = false
         activityIndicator.hidden = true
     }
     

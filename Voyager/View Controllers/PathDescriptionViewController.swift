@@ -49,7 +49,7 @@ class PathDescriptionViewController: UIViewController {
         
         distanceLabel.text = "Total Distance: \(path!.totalDistance) miles"
         timeLabel.text = "Total Time: \(path!.totalTime)"
-        timeLabel.hidden = false
+        timeLabel.hidden = true
         
         instantiateMap()
         
