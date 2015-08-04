@@ -17,6 +17,7 @@ class NavigateViewController: UIViewController {
     
     @IBOutlet weak var location1Label: UILabel!
     @IBOutlet weak var location2Label: UILabel!
+    @IBOutlet weak var legNumber: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class NavigateViewController: UIViewController {
         
         location1Label.text = location1?.name
         location2Label.text = location2?.name
+        legNumber.hidden = true
     }
 
     override func didReceiveMemoryWarning() {

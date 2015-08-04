@@ -332,7 +332,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="legNumber" destination="ino-uT-CxA" id="xQz-p0-Zoe"/>
+                        <outlet property="legNumber" destination="ino-uT-CxA" id="F5f-O0-7fP"/>
                         <outlet property="location1Label" destination="59i-HS-tyI" id="UN8-ic-hq4"/>
                         <outlet property="location2Label" destination="cZ6-8J-mdI" id="0fF-iI-iDu"/>
                     </connections>
