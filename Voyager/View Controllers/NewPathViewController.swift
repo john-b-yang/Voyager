@@ -39,7 +39,8 @@ class NewPathViewController: UIViewController {
     @IBOutlet weak var pathNameEntry: UITextField!
     @IBOutlet weak var destinationTableView: UITableView!
     @IBOutlet weak var progressBar: UIProgressView!
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     let cellBorderWidth: CGFloat = 0.5
     
     let filter = GMSAutocompleteFilter()
@@ -77,8 +78,9 @@ class NewPathViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         progressBar.setProgress(0, animated: true)
-        progressBar.hidden = true
         
+        progressBar.hidden = true
+        activityIndicator.hidden = true
     }
     
     private func initializeAutocomplete(entry: AutoCompleteTextField) {

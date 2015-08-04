@@ -26,7 +26,6 @@ class PathTableViewController: UITableViewController {
                 if test.count > 0 {
                     defaultLabel.hidden = true
                 }
-
             }
         }
     }
@@ -82,15 +81,24 @@ class PathTableViewController: UITableViewController {
                     if let start = source.startLocation {
                         if !source.locationList.isEmpty {
                             
-                            let modValue = source.locationList.count
-                            source.progressBar.hidden = false
-                                
+//                            source.activityIndicator.hidden = true
+                            
+//                            source.progressBar.hidden = false
+//                            let modValue = Double(source.locationList.count)
+//                            
+//                            println("\(source.progressBar.hidden)")
+                            
+//                            var k : Float = 0
+//                            var interval: Float = Float(1.0 / modValue)
+                            
                             let newPath = Path()
                             newPath.pathName = source.pathNameEntry.text
                             
                             for var i = 0; i < source.locationList.count; i++ {
                                 var gmsplace = source.locationList[i]
                                 newPath.initialList.append(createLocation(gmsplace))
+//                                source.progressBar.progress = k
+//                                k += interval
                             }
                             
                             var startGMSPlace = source.startLocation
@@ -104,7 +112,7 @@ class PathTableViewController: UITableViewController {
                             } else {
                                 source.displayAlert("Routing Unavailable", alertMessage: "A route between \(newPath.locationList[0].name) and \(newPath.locationList[newPath.locationList.count - 1].name) could not be found. Sorry about the inconvenience")
                             }
-                            source.progressBar.hidden = true
+                            //source.progressBar.hidden = true
                         } else {
                             source.displayAlert("Error", alertMessage: "Please enter at least one destination")
                         }
@@ -127,7 +135,7 @@ class PathTableViewController: UITableViewController {
                 println("Cancelled")
             }
             
-            paths = realm.objects(Path).sorted("pathName", ascending: true)
+            paths = realm.objects(Path).sorted("modificationDate", ascending: false)
         }
     }
     
@@ -187,7 +195,7 @@ extension PathTableViewController: UITableViewDataSource{
                 realm.write() {
                     realm.delete(path)
                 }
-                self.paths = realm.objects(Path).sorted("pathName", ascending: true)
+                self.paths = realm.objects(Path).sorted("modificationDate", ascending: false)
             })
             alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
